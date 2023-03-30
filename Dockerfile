@@ -28,5 +28,5 @@ RUN mvn package -DskipTests
 
 FROM openjdk:17-alpine
 COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+#EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
