@@ -49,6 +49,33 @@ public class BookingResource {
 	private JavaMailSender mailSender;
 
 
+	
+	@PostMapping("/checkDateAvailability")
+	public ResponseEntity<HttpCustomResponse> checkDateAvailability(@RequestParam("checkInDate") Date checkInDate,
+			@RequestParam("checkOutDate") Date checkOutDate)
+			throws PropertyBookingExistException {
+
+		LocalDate checkInDateLocalDate = checkInDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate checkOutDateLocalDate = checkOutDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
+
+		List<CheckInAndOutDate> dbCheckInAndOutDateList = checkInAndOutDateService.findAll();
+
+		for (CheckInAndOutDate dbCheckInAndOutDate : dbCheckInAndOutDateList) {
+			if (dbCheckInAndOutDate.getCheckInDate() == checkInDateLocalDate
+					&& dbCheckInAndOutDate.getCheckOutDate() == checkOutDateLocalDate) {
+
+				throw new PropertyBookingExistException("");
+
+			}
+		}
+
+		return response(HttpStatus.OK, "Your dates are available! Check the property to rent");
+	}
+
+	
+	
+	
 	@PostMapping("/checkPropertyAvailability")
 	public ResponseEntity<HttpCustomResponse> checkPropertyAvailability(@RequestParam("checkInDate") Date checkInDate,
 			@RequestParam("checkOutDate") Date checkOutDate, @RequestParam("propertyId") Long PropertyId)
