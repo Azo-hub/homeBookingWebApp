@@ -43,7 +43,7 @@ public class MailConstructor {
                 + password;
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(user.getEmail());
-        email.setSubject("CodeFlair - User Password Reset Email");
+        email.setSubject("Valence Direct Booking Rental - User Password Reset Email");
         email.setText(url + message);
         email.setFrom(env.getProperty("readone.cybernet@gmail.com"));
         return email;
@@ -58,7 +58,7 @@ public class MailConstructor {
                 + password;
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(user.getEmail());
-        email.setSubject("CodeFlair - New User Email Verification");
+        email.setSubject("Valence Direct Booking Rental - New User Email Verification");
         email.setText(message);
         email.setFrom(env.getProperty("readone.cybernet@gmail.com"));
         return email;

@@ -29,9 +29,9 @@ public class UserProfileResource {
 			@RequestParam("currentUsername") String currentUsername, @RequestParam("firstName") String firstname,
 			@RequestParam("lastName") String lastname, @RequestParam("phone") String phone,
 			@RequestParam("role") String role, @RequestParam("gender") String gender,
-			@RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
-			@RequestParam("accountEnabled") String accountEnabled,
-			@RequestParam("accountNonLocked") String accountNonLocked)
+			@RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword
+			/*@RequestParam("accountEnabled") String accountEnabled,
+			@RequestParam("accountNonLocked") String accountNonLocked*/)
 			throws UserNotFoundException, EmailExistException, UsernameExistException, PasswordNotMatchException {
 
 		Userr currentUser = userService.findByUsername(currentUsername);
@@ -42,7 +42,7 @@ public class UserProfileResource {
 		}
 
 		updateUser(currentUser, password, email, username, firstname, lastname, phone, role, gender, newPassword,
-				confirmPassword, accountEnabled, accountNonLocked);
+				confirmPassword, "true", "true");
 
 		return new ResponseEntity<>(currentUser, HttpStatus.OK);
 
