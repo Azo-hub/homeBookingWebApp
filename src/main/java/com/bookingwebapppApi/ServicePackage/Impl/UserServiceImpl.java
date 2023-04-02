@@ -56,11 +56,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Userr createUser(String email, String username)
+    public Userr createUser(String email, String username, String role)
             throws UsernameExistException, UserNotFoundException, EmailExistException {
-
+    	/*Validate if user do not already exist */
         validateNewUsernameAndEmail("", username, email);
 
+        
+        /*Start creating a new user*/
         Userr user = new Userr();
         user.setUsername(username);
         user.setEmail(email);
@@ -70,8 +72,21 @@ public class UserServiceImpl implements UserService {
 
         user.setDateJoined(new Date());
         user.setAccountEnabled(true);
-        user.setRole(Role.ROLE_USER.name());
-        user.setAuthorities(Role.ROLE_USER.getAuthorities());
+        
+        if (!role.trim().isEmpty() && role.equals("ROLE_TRAVELLER_USER")) {
+
+        	user.setRole(Role.ROLE_TRAVELLER_USER.name());
+        	user.setAuthorities(Role.ROLE_TRAVELLER_USER.getAuthorities());
+
+		}
+
+		if (!role.trim().isEmpty() && role.equals("ROLE_OWNER_USER")) {
+			user.setRole(Role.ROLE_OWNER_USER.name());
+			user.setAuthorities(Role.ROLE_OWNER_USER.getAuthorities());
+
+		}
+
+        
         /* user.setImageUrl(imageUrl); */
         userRepository.save(user);
         user.setUserId("CDF-" + (10000 + user.getId()));

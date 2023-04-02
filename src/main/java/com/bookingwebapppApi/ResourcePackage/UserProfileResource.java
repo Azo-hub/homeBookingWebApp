@@ -163,22 +163,16 @@ public class UserProfileResource {
 			currentUser.setGender(gender);
 		}
 
-		if (!role.trim().isEmpty() && role.equals("ROLE_USER")) {
+		if (!role.trim().isEmpty() && role.equals("ROLE_TRAVELLER_USER")) {
 
-			currentUser.setRole(Role.ROLE_USER.name());
-			currentUser.setAuthorities(Role.ROLE_USER.getAuthorities());
-
-		}
-
-		if (!role.trim().isEmpty() && role.equals("ROLE_HR")) {
-			currentUser.setRole(Role.ROLE_HR.name());
-			currentUser.setAuthorities(Role.ROLE_HR.getAuthorities());
+			currentUser.setRole(Role.ROLE_TRAVELLER_USER.name());
+			currentUser.setAuthorities(Role.ROLE_TRAVELLER_USER.getAuthorities());
 
 		}
 
-		if (!role.trim().isEmpty() && role.equals("ROLE_MANAGER")) {
-			currentUser.setRole(Role.ROLE_MANAGER.name());
-			currentUser.setAuthorities(Role.ROLE_MANAGER.getAuthorities());
+		if (!role.trim().isEmpty() && role.equals("ROLE_OWNER_USER")) {
+			currentUser.setRole(Role.ROLE_OWNER_USER.name());
+			currentUser.setAuthorities(Role.ROLE_OWNER_USER.getAuthorities());
 
 		}
 
@@ -188,12 +182,7 @@ public class UserProfileResource {
 
 		}
 
-		if (!role.trim().isEmpty() && role.equals("ROLE_SUPER_ADMIN")) {
-			currentUser.setRole(Role.ROLE_SUPER_ADMIN.name());
-			currentUser.setAuthorities(Role.ROLE_SUPER_ADMIN.getAuthorities());
-
-		}
-
+	
 		currentUser.setAccountEnabled(Boolean.parseBoolean(accountEnabled));
 
 		currentUser.setAccountNonLocked(Boolean.parseBoolean(accountNonLocked));

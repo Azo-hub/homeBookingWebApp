@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,13 +26,14 @@ import com.cloudinary.Singleton;
 import com.cloudinary.utils.ObjectUtils;
 
 @RestController
+
 public class AddNewPropertyResource {
 	@Autowired
 	private PropertyService propertyService;
 	
 	private final Cloudinary cloudinary = Singleton.getCloudinary();
 	
-	
+	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/newProperty")
 	public ResponseEntity<Property> newUserPost(HttpServletRequest request,@RequestBody Property property /*
 			 MultipartFile profileImage */ )
@@ -47,7 +49,7 @@ public class AddNewPropertyResource {
 
 	}
 	
-	
+	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/uploadPropertyImage1")
 	public ResponseEntity<HttpCustomResponse> propertyImage1(
 			@RequestParam("propertyImage") MultipartFile propertyImage,
@@ -94,7 +96,7 @@ public class AddNewPropertyResource {
 	}
 	
 	
-	
+	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/uploadPropertyImage2")
 	public ResponseEntity<HttpCustomResponse> propertyImage2(
 			@RequestParam("propertyImage") MultipartFile propertyImage,
@@ -141,7 +143,7 @@ public class AddNewPropertyResource {
 	}
 
 	
-	
+	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/uploadPropertyImage3")
 	public ResponseEntity<HttpCustomResponse> propertyImage3(
 			@RequestParam("propertyImage") MultipartFile propertyImage,
@@ -188,7 +190,7 @@ public class AddNewPropertyResource {
 	}
 
 	
-	
+	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/uploadPropertyImage4")
 	public ResponseEntity<HttpCustomResponse> propertyImage4(
 			@RequestParam("propertyImage") MultipartFile propertyImage,
@@ -236,7 +238,7 @@ public class AddNewPropertyResource {
 
 	
 	
-	
+	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/uploadPropertyImage5")
 	public ResponseEntity<HttpCustomResponse> propertyImage5(
 			@RequestParam("propertyImage") MultipartFile propertyImage,

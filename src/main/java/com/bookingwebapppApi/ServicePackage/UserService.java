@@ -35,7 +35,7 @@ public interface UserService {
 
 
 
-    Userr createUser(String email, String username)
+    Userr createUser(String email, String username, String role)
             throws UsernameExistException, UserNotFoundException, EmailExistException;
 
     void deleteUserById(Long userId);

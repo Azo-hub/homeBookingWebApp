@@ -28,8 +28,7 @@ public class Userr implements Serializable {
     private String lastname;
     private String othername;
     private String gender;
-    private String userType;
-
+    
     @Column(name = "email", nullable = false, updatable = false)
     private String email;
     private String phone;
@@ -71,7 +70,6 @@ public class Userr implements Serializable {
         this.lastname = lastname;
         this.othername = othername;
         this.gender = gender;
-        this.userType = userType;
         this.email = email;
         this.phone = phone;
         this.imageUrl = imageUrl;
@@ -153,14 +151,7 @@ public class Userr implements Serializable {
         this.gender = gender;
     }
     
-    public String getUserType() {
-    	return userType;
-    }
     
-    public void setUserType(String userType) {
-    	this.userType = userType;
-    }
-
     public String getEmail() {
         return email;
     }
