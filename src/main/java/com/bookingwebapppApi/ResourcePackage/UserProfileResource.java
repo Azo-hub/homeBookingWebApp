@@ -22,7 +22,8 @@ import com.bookingwebapppApi.UtilityPackage.SecurityUtility;
 public class UserProfileResource {
 	@Autowired
 	private UserService userService;
-
+	
+	@PreAuthorize("hasAnyAuthority('user:read')")
 	@PostMapping("/updateUserInfoBySelf")
 	public ResponseEntity<Userr> updateUserInfoSelf(@RequestParam("currentPassword") String password,
 			@RequestParam("email") String email, @RequestParam("username") String username,
