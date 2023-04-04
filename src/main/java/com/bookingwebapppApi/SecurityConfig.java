@@ -62,17 +62,17 @@ public class SecurityConfig {
 
         authenticationManagerBuilder.userDetailsService(userSecurityService).passwordEncoder(bCryptPasswordEncoder());
 
-        http.authorizeRequests().antMatchers(SecurityConstant.PUBLIC_URLS).permitAll().anyRequest().authenticated();
+       http.authorizeRequests().antMatchers(SecurityConstant.PUBLIC_URLS).permitAll().anyRequest().authenticated();
 
         http.csrf().disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().accessDeniedHandler(jwtAccessDeniedHandler)
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-
                 .and().addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-                /* .failureHandler(loginFailureHandler).successHandler(loginSuccessHandler) */
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/?logout")
-                /* .deleteCookies("remember-me") */ .permitAll().and().rememberMe()
-                .tokenValiditySeconds(3 * 24 * 60 * 60).tokenRepository(persistentTokenRepository());
+                .permitAll().and().rememberMe()
+                .tokenValiditySeconds(3 * 24 * 60 * 60).tokenRepository(persistentTokenRepository()); 
+                        		
+
 
         return http.build();
     }

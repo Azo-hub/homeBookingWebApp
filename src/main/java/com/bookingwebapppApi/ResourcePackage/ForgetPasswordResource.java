@@ -22,6 +22,8 @@ import com.bookingwebapppApi.UtilityPackage.SecurityUtility;
 
 @RestController
 public class ForgetPasswordResource {
+	
+	@Autowired
 	private JavaMailSender mailSender;
 
 	@Autowired

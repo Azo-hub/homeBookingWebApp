@@ -1,5 +1,7 @@
 package com.bookingwebapppApi.ResourcePackage;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,12 @@ public class LoginResource {
 		authenticate(user.getUsername(), user.getPassword());
 		Userr loginUser = userService.findByUsername(user.getUsername());
 		UserPrincipal userPrincipal = new UserPrincipal(loginUser);
+		
 		HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
+		loginUser.setLastLoginDate(new Date());
+		userService.save(loginUser);
+		loginUser.setLastLoginDateDisplay(loginUser.getLastLoginDate());
+		userService.save(loginUser);
 		return new ResponseEntity<>(loginUser, jwtHeader, HttpStatus.OK);
 	}
 
