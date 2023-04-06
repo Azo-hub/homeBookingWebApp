@@ -34,7 +34,7 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public void deletePropertyById(Long id) {
         // TODO Auto-generated method stub
-
+    	propertyRepository.deleteById(id);
     }
 
     @SuppressWarnings("deprecation")
