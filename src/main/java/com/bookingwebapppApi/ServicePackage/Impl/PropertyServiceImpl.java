@@ -53,9 +53,9 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public void save(Property newProperty) {
+    public void save(Property Property) {
         // TODO Auto-generated method stub
-        propertyRepository.save(newProperty);
+        propertyRepository.save(Property);
 
     }
 

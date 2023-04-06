@@ -21,6 +21,7 @@ public class Property extends Auditable <String>  implements Serializable {
     //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private double propertyPrice;
     private String propertyCountry;
+    private String propertyCity;
     private String propertyState;
     private String propertyAddress;
     private String propertyZipCode;
@@ -82,6 +83,14 @@ public class Property extends Auditable <String>  implements Serializable {
 
 	public void setPropertyState(String propertyState) {
 		this.propertyState = propertyState;
+	}
+
+	public String getPropertyCity() {
+		return propertyCity;
+	}
+
+	public void setPropertyCity(String propertyCity) {
+		this.propertyCity = propertyCity;
 	}
 
 	public String getPropertyAddress() {
