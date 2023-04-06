@@ -17,4 +17,6 @@ public interface PropertyService {
 
     List<Property> findAll();
 
+	List<Property> findByPropertyOwner(String propertyOwner);
+
 }

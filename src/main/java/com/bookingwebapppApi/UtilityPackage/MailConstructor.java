@@ -34,17 +34,17 @@ public class MailConstructor {
 
     }
 
-    public SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, Userr user,
+    public SimpleMailMessage constructResetTokenEmail(Locale locale, String token, Userr user,
                                                       String password) {
 
-        String url = contextPath + "/newUser?token=" + token;
+        
 
-        String message = "\nHi "+user.getFirstname()+","+"\nPlease click on this link to verify your email and edit your personal information, Your password is: \n"
+        String message = "\nHi "+user.getFirstname()+","+"\nYour new password is: \n"
                 + password;
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(user.getEmail());
         email.setSubject("Valence Direct Booking Rental - User Password Reset Email");
-        email.setText(url + message);
+        email.setText(message);
         email.setFrom(env.getProperty("devreadone@gmail.com"));
         return email;
 

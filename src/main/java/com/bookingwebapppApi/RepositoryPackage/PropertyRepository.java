@@ -12,5 +12,8 @@ import com.bookingwebapppApi.ModelPackage.Property;
 @Repository
 @Transactional
 public interface PropertyRepository extends JpaRepository<Property, Long> {
-    List<Property> findByPropertyType(String PropertyType);
+    
+	List<Property> findByPropertyType(String PropertyType);
+
+	List<Property> findByCreatedBy(String propertyOwner);
 }

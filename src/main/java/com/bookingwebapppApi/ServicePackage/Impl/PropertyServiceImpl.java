@@ -13,6 +13,13 @@ import com.bookingwebapppApi.ServicePackage.PropertyService;
 public class PropertyServiceImpl implements PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
+    
+    
+    @Override
+    public List<Property> findByPropertyOwner (String propertyOwner) {
+    	
+    	return propertyRepository.findByCreatedBy(propertyOwner);
+    }
 
 
     @Override

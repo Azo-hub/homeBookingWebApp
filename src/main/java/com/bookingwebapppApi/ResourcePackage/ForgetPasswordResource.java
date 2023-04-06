@@ -54,9 +54,8 @@ public class ForgetPasswordResource {
 		String token = UUID.randomUUID().toString();
 		userService.createPasswordResetTokenForUser(user, token);
 
-		String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-
-		SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user,
+		
+		SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(request.getLocale(), token, user,
 				password);
 
 		mailSender.send(newEmail);
