@@ -1,18 +1,29 @@
 package com.bookingwebapppApi;
 
-import java.util.Arrays;
 
+
+import java.util.Arrays;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import com.bookingwebapppApi.ModelPackage.Userr;
+import com.bookingwebapppApi.ServicePackage.UserService;
+import com.bookingwebapppApi.UtilityPackage.MailConstructor;
+import com.bookingwebapppApi.UtilityPackage.SecurityUtility;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.SingletonManager;
 import com.cloudinary.utils.ObjectUtils;
@@ -20,8 +31,17 @@ import com.cloudinary.utils.ObjectUtils;
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @SpringBootApplication
 @EnableScheduling
-public class BookingwebapppApiApplication {
+public class BookingwebapppApiApplication /* implements CommandLineRunner */ {
 	
+/*	@Autowired
+	private JavaMailSender mailSender;
+
+	@Autowired
+	private MailConstructor mailConstructor;
+	
+	@Autowired
+	private UserService userService; */
+
 	@Bean
 	public AuditorAware<String> auditorAware() {
 
@@ -70,5 +90,40 @@ public class BookingwebapppApiApplication {
 	}
 
 
+    
+    
+  /*  
+    @Override
+    public void run(String ...args) throws Exception {
+    	
+    	Userr newUser = userService.createUser("azeezridwanaws4@gmail.com", "azeezridwanaws", "ROLE_ADMIN");
+
+		String password = SecurityUtility.randomPassword();
+		String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
+		newUser.setPassword(encryptedPassword);
+
+		newUser.setFirstname("Azeez");
+
+		newUser.setLastname("RidwanAws");
+
+		userService.save(newUser);
+
+		String token = UUID.randomUUID().toString();
+		userService.createPasswordResetTokenForUser(newUser, token);
+
+		
+		
+		SimpleMailMessage Email = mailConstructor.constructNewUserEmail(null, token, newUser,
+				password);
+		
+		mailSender.send(Email);
+		
+
+    	
+    }
+    
+    */
+    
+    
 
 }

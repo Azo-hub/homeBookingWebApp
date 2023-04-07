@@ -85,6 +85,13 @@ public class UserServiceImpl implements UserService {
 			user.setAuthorities(Role.ROLE_OWNER_USER.getAuthorities());
 
 		}
+		
+		if (!role.trim().isEmpty() && role.equals("ROLE_ADMIN")) {
+			user.setRole(Role.ROLE_ADMIN.name());
+			user.setAuthorities(Role.ROLE_ADMIN.getAuthorities());
+
+		}
+
 
         
         /* user.setImageUrl(imageUrl); */

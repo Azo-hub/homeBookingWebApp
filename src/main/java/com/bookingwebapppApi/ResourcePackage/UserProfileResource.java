@@ -1,10 +1,13 @@
 package com.bookingwebapppApi.ResourcePackage;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +25,7 @@ import com.bookingwebapppApi.UtilityPackage.SecurityUtility;
 public class UserProfileResource {
 	@Autowired
 	private UserService userService;
-	
+
 	@PreAuthorize("hasAnyAuthority('user:read')")
 	@PostMapping("/updateUserInfoBySelf")
 	public ResponseEntity<Userr> updateUserInfoSelf(@RequestParam("currentPassword") String password,
@@ -31,9 +34,11 @@ public class UserProfileResource {
 			@RequestParam("lastName") String lastname, @RequestParam("phone") String phone,
 			@RequestParam("role") String role, @RequestParam("gender") String gender,
 			@RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword
-			/*@RequestParam("accountEnabled") String accountEnabled,
-			@RequestParam("accountNonLocked") String accountNonLocked*/)
-			throws UserNotFoundException, EmailExistException, UsernameExistException, PasswordNotMatchException {
+	/*
+	 * @RequestParam("accountEnabled") String accountEnabled,
+	 * 
+	 * @RequestParam("accountNonLocked") String accountNonLocked
+	 */) throws UserNotFoundException, EmailExistException, UsernameExistException, PasswordNotMatchException {
 
 		Userr currentUser = userService.findByUsername(currentUsername);
 
@@ -69,6 +74,15 @@ public class UserProfileResource {
 				accountNonLocked);
 
 		return new ResponseEntity<>(currentUser, HttpStatus.OK);
+
+	}
+
+	@GetMapping("/allUser")
+	public ResponseEntity<List<Userr>> getAllUsers() {
+
+		List<Userr> allUser = userService.getAllUsers();
+
+		return new ResponseEntity<>(allUser, HttpStatus.OK);
 
 	}
 
@@ -183,7 +197,6 @@ public class UserProfileResource {
 
 		}
 
-	
 		currentUser.setAccountEnabled(Boolean.parseBoolean(accountEnabled));
 
 		currentUser.setAccountNonLocked(Boolean.parseBoolean(accountNonLocked));
