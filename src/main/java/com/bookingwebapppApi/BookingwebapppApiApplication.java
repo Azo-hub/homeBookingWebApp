@@ -40,7 +40,7 @@ public class BookingwebapppApiApplication /* implements CommandLineRunner */ {
 	private MailConstructor mailConstructor;
 	
 	@Autowired
-	private UserService userService; */
+	private UserService userService;  */
 
 	@Bean
 	public AuditorAware<String> auditorAware() {
@@ -92,19 +92,23 @@ public class BookingwebapppApiApplication /* implements CommandLineRunner */ {
 
     
     
-  /*  
+   /*
     @Override
     public void run(String ...args) throws Exception {
     	
-    	Userr newUser = userService.createUser("azeezridwanaws4@gmail.com", "azeezridwanaws", "ROLE_ADMIN");
+    	Userr newUser = userService.createUser("akintundeidris67@gmail.com", "edris", "ROLE_ADMIN");
 
 		String password = SecurityUtility.randomPassword();
 		String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
 		newUser.setPassword(encryptedPassword);
 
-		newUser.setFirstname("Azeez");
+		newUser.setFirstname("Idris");
 
-		newUser.setLastname("RidwanAws");
+		newUser.setLastname("Akintunde");
+		
+		newUser.setIsIdcard(true);
+		
+		newUser.setIsVerified(true);
 
 		userService.save(newUser);
 

@@ -64,6 +64,56 @@ public class MailConstructor {
         return email;
 
     }
+    
+    
+    public SimpleMailMessage constructIdentityUploadEmail(Locale locale, Userr user) {
+
+
+    	String message = "\nThank you "+ user.getUsername() +" for uploading your means of identification. We will get back to you \n"
+    			+"after verification.";
+    	SimpleMailMessage email = new SimpleMailMessage();
+    	email.setTo(user.getEmail());
+    	email.setSubject("Valence Direct Booking Rental - Identity Verification");
+    	email.setText(message);
+    	email.setFrom(env.getProperty("devreadone@gmail.com"));
+    	return email;
+
+    }
+    
+    
+    
+    public SimpleMailMessage constructIdentityUploadEmailAdmin1(Locale locale, Userr user) {
+
+
+    	String message = "\nA user "+ user.getUsername() +" has just uploaded his means of identification, please login \n"
+    			+"to validate the uploaded document.";
+    	SimpleMailMessage email = new SimpleMailMessage();
+    	email.setTo("akintundeidris67@gmail.com");
+    	email.setSubject("Valence Direct Booking Rental - Identity Verification");
+    	email.setText(message);
+    	email.setFrom(env.getProperty("devreadone@gmail.com"));
+    	return email;
+
+    }
+
+    
+    
+    
+    public SimpleMailMessage constructIdentityUploadEmailAdmin2(Locale locale, Userr user) {
+
+
+    	String message = "\nA user "+ user.getUsername() +" has just uploaded his means of identification, please login \n"
+    			+"to validate the uploaded document.";
+    	SimpleMailMessage email = new SimpleMailMessage();
+    	email.setTo("readone.cybernet@gmail.com");
+    	email.setSubject("Valence Direct Booking Rental - Identity Verification");
+    	email.setText(message);
+    	email.setFrom(env.getProperty("devreadone@gmail.com"));
+    	return email;
+
+    }
+
+    
 
     public SimpleMailMessage constructNewBookingEmailTravellerLoginUser(Locale locale, Booking booking) {
         // TODO Auto-generated method stub

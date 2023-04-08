@@ -50,6 +50,12 @@ public class Userr implements Serializable {
     private String role;
 
     private String[] authorities;
+    
+    private Boolean isIdcard = false;
+    
+    private Boolean isVerified = false;
+    
+    private String identityType;
 
 
     public Userr() {
@@ -248,6 +254,42 @@ public class Userr implements Serializable {
     public void setAuthorities(String[] authorities) {
         this.authorities = authorities;
     }
+
+
+
+	public Boolean getIsIdcard() {
+		return isIdcard;
+	}
+
+
+
+	public void setIsIdcard(Boolean isIdcard) {
+		this.isIdcard = isIdcard;
+	}
+
+
+
+	public Boolean getIsVerified() {
+		return isVerified;
+	}
+
+
+
+	public void setIsVerified(Boolean isVerified) {
+		this.isVerified = isVerified;
+	}
+
+
+
+	public String getIdentityType() {
+		return identityType;
+	}
+
+
+
+	public void setIdentityType(String identityType) {
+		this.identityType = identityType;
+	}
 
 
 }

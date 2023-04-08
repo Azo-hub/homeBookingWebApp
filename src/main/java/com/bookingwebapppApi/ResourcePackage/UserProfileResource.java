@@ -1,30 +1,54 @@
 package com.bookingwebapppApi.ResourcePackage;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bookingwebapppApi.ExceptionPackage.EmailExistException;
 import com.bookingwebapppApi.ExceptionPackage.PasswordNotMatchException;
+import com.bookingwebapppApi.ExceptionPackage.PropertyBookingExistException;
 import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
 import com.bookingwebapppApi.ExceptionPackage.UsernameExistException;
+import com.bookingwebapppApi.ModelPackage.CheckInAndOutDate;
+import com.bookingwebapppApi.ModelPackage.Property;
 import com.bookingwebapppApi.ModelPackage.Role;
 import com.bookingwebapppApi.ModelPackage.Userr;
 import com.bookingwebapppApi.ServicePackage.UserService;
+import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
+import com.bookingwebapppApi.UtilityPackage.MailConstructor;
 import com.bookingwebapppApi.UtilityPackage.SecurityUtility;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Singleton;
+import com.cloudinary.utils.ObjectUtils;
 
 @RestController
 public class UserProfileResource {
 	@Autowired
+	private JavaMailSender mailSender;
+
+	@Autowired
+	private MailConstructor mailConstructor;
+
+	@Autowired
 	private UserService userService;
+
+	private final Cloudinary cloudinary = Singleton.getCloudinary();
 
 	@PreAuthorize("hasAnyAuthority('user:read')")
 	@PostMapping("/updateUserInfoBySelf")
@@ -81,8 +105,104 @@ public class UserProfileResource {
 	public ResponseEntity<List<Userr>> getAllUsers() {
 
 		List<Userr> allUser = userService.getAllUsers();
+		List<Userr> filteredUser = new ArrayList<>();
 
-		return new ResponseEntity<>(allUser, HttpStatus.OK);
+		for (Userr eachUser : allUser) {
+			if (!eachUser.getRole().equals("ROLE_ADMIN")) {
+
+				filteredUser.add(eachUser);
+
+			}
+		}
+
+		return new ResponseEntity<>(filteredUser, HttpStatus.OK);
+
+	}
+
+	@PreAuthorize("hasAnyAuthority('user:create')")
+	@PostMapping("/uploadIdentityImage")
+	public ResponseEntity<HttpCustomResponse> identityImage(HttpServletRequest request,
+			@RequestParam("identityImage") MultipartFile identityImage,
+			@RequestParam("identityType") String identityType, Principal principal) {
+
+		Userr currentUser = userService.findByUsername(principal.getName());
+
+		if (!identityImage.isEmpty()) {
+
+			try {
+				byte[] bytes = identityImage.getBytes();
+
+				String name = "bookingwebapp" + currentUser.getFirstname() + currentUser.getLastname()
+						+ currentUser.getUserId();
+
+				/* uploading image file to cloudinary */
+				Map uploadResult = cloudinary.uploader().upload(bytes, ObjectUtils.asMap("invalidate", true));
+
+				String publicId = uploadResult.get("public_id").toString();
+
+				cloudinary.uploader().rename(publicId, name,
+						ObjectUtils.asMap("resource_type", "image", "overwrite", "true"));
+
+				currentUser.setIdentityType(identityType);
+				currentUser.setIsIdcard(true);
+				userService.save(currentUser);
+
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+
+		}
+
+		if (currentUser.getIsIdcard() == true) {
+
+			SimpleMailMessage email1 = mailConstructor.constructIdentityUploadEmail(request.getLocale(), currentUser);
+
+			mailSender.send(email1);
+
+			SimpleMailMessage email2 = mailConstructor.constructIdentityUploadEmailAdmin1(request.getLocale(),
+					currentUser);
+
+			mailSender.send(email2);
+
+			SimpleMailMessage email3 = mailConstructor.constructIdentityUploadEmailAdmin2(request.getLocale(),
+					currentUser);
+
+			mailSender.send(email3);
+		}
+
+		return response(HttpStatus.OK, "Image Uploaded Successfully");
+
+	}
+
+	@PreAuthorize("hasAnyAuthority('user:create')")
+	@PostMapping("/getUserByUsername")
+	public ResponseEntity<Userr> getUserById(@RequestParam("username") String username) {
+
+		Userr user = userService.findByUsername(username);
+
+		return new ResponseEntity<>(user, HttpStatus.OK);
+
+	}
+
+	@PreAuthorize("hasAnyAuthority('user:create')")
+	@PostMapping("/verifyAcct")
+	public ResponseEntity<HttpCustomResponse> verifyAccount(@RequestParam("verify") boolean verify,
+			@RequestParam("username") String username) {
+
+		Userr user = userService.findByUsername(username);
+
+		user.setIsVerified(verify);
+
+		userService.save(user);
+
+		return response(HttpStatus.OK, "User Verification Status Changed Successfully");
+
+	}
+
+	private ResponseEntity<HttpCustomResponse> response(HttpStatus httpStatus, String message) {
+
+		return new ResponseEntity<>(new HttpCustomResponse(httpStatus.value(), httpStatus,
+				httpStatus.getReasonPhrase().toUpperCase(), message.toUpperCase()), httpStatus);
 
 	}
 

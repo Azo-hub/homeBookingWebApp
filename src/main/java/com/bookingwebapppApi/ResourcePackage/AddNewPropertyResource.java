@@ -1,5 +1,6 @@
 package com.bookingwebapppApi.ResourcePackage;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -15,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bookingwebapppApi.ExceptionPackage.AccountVerifiedException;
 import com.bookingwebapppApi.ExceptionPackage.EmailExistException;
 import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
 import com.bookingwebapppApi.ExceptionPackage.UsernameExistException;
 import com.bookingwebapppApi.ModelPackage.Property;
+import com.bookingwebapppApi.ModelPackage.Userr;
 import com.bookingwebapppApi.ServicePackage.PropertyService;
+import com.bookingwebapppApi.ServicePackage.UserService;
 import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;
@@ -27,6 +31,10 @@ import com.cloudinary.utils.ObjectUtils;
 
 @RestController
 public class AddNewPropertyResource {
+	
+	@Autowired
+	private UserService userService;
+	
 	@Autowired
 	private PropertyService propertyService;
 	
@@ -34,10 +42,17 @@ public class AddNewPropertyResource {
 	
 	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/newProperty")
-	public ResponseEntity<Property> newUserPost(HttpServletRequest request,@RequestBody Property property /*
-			 MultipartFile profileImage */ )
-			throws UsernameExistException, UserNotFoundException, EmailExistException {
+	public ResponseEntity<Property> newUserPost(HttpServletRequest request,@RequestBody Property property , Principal principal)
+			throws UsernameExistException, UserNotFoundException, EmailExistException, AccountVerifiedException {
+		
+		Userr loginUser = userService.findByUsername(principal.getName());
+		
+		if (loginUser.getIsVerified() == false) {
+			 
+			throw new AccountVerifiedException ("You can only list a property after your account is verified! Contact support for further updates.");
 
+		}
+			
 		Property newProperty = propertyService.createProperty(property);
 		newProperty.setPropertyType(property.getPropertyType().toLowerCase());
 		newProperty.setPropertyOwner(property.getCreatedBy());
@@ -45,6 +60,8 @@ public class AddNewPropertyResource {
 		
 
 		return new ResponseEntity<>(newProperty, HttpStatus.OK);
+		
+		
 
 	}
 	
