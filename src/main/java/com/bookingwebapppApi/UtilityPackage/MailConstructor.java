@@ -33,6 +33,25 @@ public class MailConstructor {
         return email;
 
     }
+    
+    public SimpleMailMessage contactSupportEmail(Locale locale, String firstname, String lastname, String email, String subject,
+    														String phonenumber, String problem) {
+    	
+    	String message = "Name:" + " " + firstname + " " + lastname + "\n\n" +
+    			"Email:" + " " + email + "\n\n" + 
+    			"Phone Number:" + " " + phonenumber + "\n\n" +
+    			"Description of Problem:" + " " + problem ;
+
+        SimpleMailMessage supportMail = new SimpleMailMessage();
+        supportMail.setTo("devreadone@gmail.com");
+        supportMail.setSubject(subject + " - ENQUIRIES FROM CUSTOMER");
+        supportMail.setText(message);
+        supportMail.setFrom(env.getProperty("devreadone@gmail.com"));
+        return supportMail;
+
+    	
+    	
+    }
 
     public SimpleMailMessage constructResetTokenEmail(Locale locale, String token, Userr user,
                                                       String password) {

@@ -198,6 +198,27 @@ public class UserProfileResource {
 		return response(HttpStatus.OK, "User Verification Status Changed Successfully");
 
 	}
+	
+	
+	@PreAuthorize("hasAnyAuthority('user:read')")
+	@PostMapping("/support")
+	public ResponseEntity<HttpCustomResponse> contactSuport(HttpServletRequest request, @RequestParam("firstname") String firstname,
+			@RequestParam("lastname") String lastname, @RequestParam("email") String email, @RequestParam("subject") String subject,
+			@RequestParam("phonenumber") String phonenumber, @RequestParam("problem") String problem) {
+		
+			SimpleMailMessage supportMail = mailConstructor.contactSupportEmail(request.getLocale(), firstname, lastname, email, 
+																					subject, phonenumber, problem);
+
+			mailSender.send(supportMail);
+
+		
+		return response(HttpStatus.OK, "Message Sent Successfully! We will contact you as soon as possible.");
+
+	}
+
+	
+	
+	
 
 	private ResponseEntity<HttpCustomResponse> response(HttpStatus httpStatus, String message) {
 
