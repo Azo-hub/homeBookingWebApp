@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookingwebapppApi.ModelPackage.Property;
+import com.bookingwebapppApi.ModelPackage.Review;
 import com.bookingwebapppApi.ServicePackage.PropertyService;
+import com.bookingwebapppApi.ServicePackage.ReviewService;
 import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
 
 @RestController
@@ -19,6 +21,9 @@ public class PropertyResource {
 
 	@Autowired
 	private PropertyService propertyService;
+	
+	@Autowired
+	private ReviewService reviewService;
 
 	@PreAuthorize("hasAnyAuthority('user:update')")
 	@PostMapping("/editProperty")
@@ -87,6 +92,36 @@ public class PropertyResource {
 
 		return response(HttpStatus.OK, "Property deleted Successfully!");
 	}
+	
+	
+	@PreAuthorize("hasAnyAuthority('user:create')")
+	@PostMapping("/addReview")
+	public ResponseEntity<HttpCustomResponse> onAddReview(@RequestParam("propertyId") Long propertyId,
+			@RequestParam("reviewContent") String reviewContent, @RequestParam("reviewAuthor") String reviewAuthor, 
+			@RequestParam("reviewLocation") String reviewLocation) {
+		
+		
+		
+			Property property = propertyService.findById(propertyId);
+			reviewService.createReview(reviewContent, reviewAuthor, reviewLocation, property);
+			
+		
+		
+		return response(HttpStatus.OK, "Reviews added Successfully!");
+	}
+	
+	
+	@PostMapping("/reviewByProperty")
+	public ResponseEntity<List<Review>> getReviewByProperty(@RequestParam("propertyId") Long propertyId) {
+		
+		
+		
+			Property property = propertyService.findById(propertyId);
+			List<Review> propertyReview = reviewService.getReviewByProperty(property);
+ 		
+		return new ResponseEntity<>(propertyReview, HttpStatus.OK);
+	}
+
 
 	private ResponseEntity<HttpCustomResponse> response(HttpStatus httpStatus, String message) {
 

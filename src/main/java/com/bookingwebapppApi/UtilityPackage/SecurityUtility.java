@@ -25,7 +25,7 @@ public class SecurityUtility {
         StringBuilder salt = new StringBuilder ();
         Random rnd = new Random();
 
-        while (salt.length()<36) {
+        while (salt.length()<7) {
 
             int index = (int) (rnd.nextFloat()*SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));

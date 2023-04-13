@@ -79,6 +79,18 @@ public class ExceptionHandling implements ErrorController {
 
         return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
+    
+    @ExceptionHandler(AccountVerifiedException.class)
+    public ResponseEntity<HttpCustomResponse> accountVerifiedException(AccountVerifiedException exception) {
+
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(PropertyBookingExistException.class)
+    public ResponseEntity<HttpCustomResponse> propertyBookingExistException(PropertyBookingExistException exception) {
+
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
 
 
     @ExceptionHandler(InvalidTokenException.class)

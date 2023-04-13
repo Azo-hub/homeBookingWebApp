@@ -1,6 +1,7 @@
 package com.bookingwebapppApi.ModelPackage;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -33,11 +34,13 @@ public class Userr implements Serializable {
     private String email;
     private String phone;
 
-    private String imageUrl;
+    private Boolean isImage = false;
 
     private Boolean isAccountEnabled;
     private Long failedAttempt;
     private Date lockTime;
+    
+    private LocalDate dateOfBirth;
 
     private Boolean isAccountNonLocked;
 
@@ -56,6 +59,8 @@ public class Userr implements Serializable {
     private Boolean isVerified = false;
     
     private String identityType;
+    
+    
 
 
     public Userr() {
@@ -78,7 +83,6 @@ public class Userr implements Serializable {
         this.gender = gender;
         this.email = email;
         this.phone = phone;
-        this.imageUrl = imageUrl;
         this.isAccountEnabled = isAccountEnabled;
         this.failedAttempt = failedAttempt;
         this.lockTime = lockTime;
@@ -174,15 +178,19 @@ public class Userr implements Serializable {
         this.phone = phone;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+    public Boolean getIsImage() {
+		return isImage;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
-    public Boolean isAccountEnabled() {
+
+	public void setIsImage(Boolean isImage) {
+		this.isImage = isImage;
+	}
+
+
+
+	public Boolean isAccountEnabled() {
         return isAccountEnabled;
     }
 
@@ -292,4 +300,18 @@ public class Userr implements Serializable {
 	}
 
 
+
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+
+
+	
 }

@@ -36,6 +36,8 @@ public class Property extends Auditable <String>  implements Serializable {
     private double propertyServiceFee;
 
     private double propertyCleaningFee;
+    
+    private String[] reviews;
 
 	public Long getId() {
 		return id;
@@ -148,6 +150,18 @@ public class Property extends Auditable <String>  implements Serializable {
 	public void setPropertyCleaningFee(double propertyCleaningFee) {
 		this.propertyCleaningFee = propertyCleaningFee;
 	}
+	
+	public String[] getReviews() {
+		return reviews;
+	}
+
+
+
+	public void setReviews(String[] reviews) {
+		this.reviews = reviews;
+	}
+
+
 
 
 }

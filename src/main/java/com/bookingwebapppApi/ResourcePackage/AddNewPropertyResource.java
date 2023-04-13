@@ -47,7 +47,21 @@ public class AddNewPropertyResource {
 		
 		Userr loginUser = userService.findByUsername(principal.getName());
 		
-		if (loginUser.getIsVerified() == false) {
+		if (loginUser.getIsImage() == null || loginUser.getIsImage() == false) {
+			 
+			throw new AccountVerifiedException ("You can only list a property after adding your profile picture! Contact support for further updates.");
+
+		}
+
+		
+		if (loginUser.getDateOfBirth() == null) {
+			 
+			throw new AccountVerifiedException ("You can only list a property after adding your date of birth! Contact support for further updates.");
+
+		}
+
+	
+		if (loginUser.getIsVerified() == false || loginUser.getIsVerified() == null) {
 			 
 			throw new AccountVerifiedException ("You can only list a property after your account is verified! Contact support for further updates.");
 

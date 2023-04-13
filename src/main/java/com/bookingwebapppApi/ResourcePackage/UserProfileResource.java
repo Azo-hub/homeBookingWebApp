@@ -1,7 +1,12 @@
 package com.bookingwebapppApi.ResourcePackage;
 
 import java.security.Principal;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -57,12 +62,9 @@ public class UserProfileResource {
 			@RequestParam("currentUsername") String currentUsername, @RequestParam("firstName") String firstname,
 			@RequestParam("lastName") String lastname, @RequestParam("phone") String phone,
 			@RequestParam("role") String role, @RequestParam("gender") String gender,
-			@RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword
-	/*
-	 * @RequestParam("accountEnabled") String accountEnabled,
-	 * 
-	 * @RequestParam("accountNonLocked") String accountNonLocked
-	 */) throws UserNotFoundException, EmailExistException, UsernameExistException, PasswordNotMatchException {
+			@RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
+			@RequestParam("dateOfBirth") String dOB ) 
+					throws UserNotFoundException, EmailExistException, UsernameExistException, PasswordNotMatchException {
 
 		Userr currentUser = userService.findByUsername(currentUsername);
 
@@ -70,8 +72,17 @@ public class UserProfileResource {
 			throw new UserNotFoundException("User not found");
 
 		}
-
-		updateUser(currentUser, password, email, username, firstname, lastname, phone, role, gender, newPassword,
+		
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		LocalDate dateOfBirth = LocalDate.parse(dOB, format);
+		
+		
+		
+		
+		//LocalDate dateOfBirthLocalDate = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		System.out.println(dateOfBirth);
+		updateUser(currentUser, password, email, username, firstname, lastname, phone, role, gender, dateOfBirth, newPassword,
 				confirmPassword, "true", "true");
 
 		return new ResponseEntity<>(currentUser, HttpStatus.OK);
@@ -94,7 +105,7 @@ public class UserProfileResource {
 
 		}
 
-		updateUser(currentUser, "", email, username, firstname, lastname, phone, role, "", "", "", accountEnabled,
+		updateUser(currentUser, "", email, username, firstname, lastname, phone, role, "", null,"", "", accountEnabled,
 				accountNonLocked);
 
 		return new ResponseEntity<>(currentUser, HttpStatus.OK);
@@ -173,6 +184,50 @@ public class UserProfileResource {
 		return response(HttpStatus.OK, "Image Uploaded Successfully");
 
 	}
+	
+	
+	
+	
+	@PreAuthorize("hasAnyAuthority('user:read')")
+	@PostMapping("/uploadProfileImage")
+	public ResponseEntity<HttpCustomResponse> profileImage(HttpServletRequest request,
+			@RequestParam("profileImage") MultipartFile profileImage,
+			Principal principal) {
+
+		Userr currentUser = userService.findByUsername(principal.getName());
+
+		if (!profileImage.isEmpty()) {
+
+			try {
+				byte[] bytes = profileImage.getBytes();
+
+				String name = "bookingwebapp-profileImage-" + currentUser.getFirstname() + currentUser.getLastname()
+						+ currentUser.getUserId();
+
+				/* uploading image file to cloudinary */
+				Map uploadResult = cloudinary.uploader().upload(bytes, ObjectUtils.asMap("invalidate", true));
+
+				String publicId = uploadResult.get("public_id").toString();
+
+				cloudinary.uploader().rename(publicId, name,
+						ObjectUtils.asMap("resource_type", "image", "overwrite", "true"));
+
+				
+				currentUser.setIsImage(true);
+				userService.save(currentUser);
+
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+
+		}
+
+		
+		return response(HttpStatus.OK, "Image Uploaded Successfully");
+
+	}
+	
+	
 
 	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/getUserByUsername")
@@ -228,7 +283,7 @@ public class UserProfileResource {
 	}
 
 	private void updateUser(Userr currentUser, String password, String email, String username, String firstname,
-			String lastname, String phone, String role, String gender, String newPassword, String confirmPassword,
+			String lastname, String phone, String role, String gender, LocalDate dateOfBirth, String newPassword, String confirmPassword,
 			String accountEnabled, String accountNonLocked)
 			throws UserNotFoundException, EmailExistException, UsernameExistException, PasswordNotMatchException {
 
@@ -318,6 +373,12 @@ public class UserProfileResource {
 
 			currentUser.setGender(gender);
 		}
+		
+		if (dateOfBirth != null) {
+
+			currentUser.setDateOfBirth(dateOfBirth);
+		}
+
 
 		if (!role.trim().isEmpty() && role.equals("ROLE_TRAVELLER_USER")) {
 
