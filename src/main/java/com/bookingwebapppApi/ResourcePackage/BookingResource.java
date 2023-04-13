@@ -3,6 +3,7 @@ package com.bookingwebapppApi.ResourcePackage;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bookingwebapppApi.ExceptionPackage.PropertyBookingExistException;
 import com.bookingwebapppApi.ModelPackage.Booking;
 import com.bookingwebapppApi.ModelPackage.CheckInAndOutDate;
+import com.bookingwebapppApi.ModelPackage.Property;
 import com.bookingwebapppApi.ModelPackage.Userr;
 import com.bookingwebapppApi.ServicePackage.BookingService;
 import com.bookingwebapppApi.ServicePackage.CheckInAndOutDateService;
@@ -136,6 +138,36 @@ public class BookingResource {
 		return new ResponseEntity<>(booking, HttpStatus.OK);
 
 	}
+	
+	
+	
+	
+	@PostMapping("/addDates")
+	public ResponseEntity<HttpCustomResponse> addCheckInAndOutDates(@RequestParam("checkinDateAdmin") String checkInDate,
+			@RequestParam("checkoutDateAdmin") String checkOutDate, @RequestParam("propertyId") Long PropertyId) {
+		
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		LocalDate checkInDateLocalDate = LocalDate.parse(checkInDate, format);
+		LocalDate checkOutDateLocalDate = LocalDate.parse(checkOutDate, format);
+		
+
+		
+		Property property = propertyService.findById(PropertyId);
+
+		CheckInAndOutDate checkInAndOutDate = new CheckInAndOutDate();
+        checkInAndOutDate.setCheckInDate(checkInDateLocalDate);
+        checkInAndOutDate.setCheckOutDate(checkOutDateLocalDate);
+        checkInAndOutDate.setProperty(property);
+        checkInAndOutDateService.save(checkInAndOutDate);
+		
+
+		
+		return response(HttpStatus.OK, "Dates added successsfully!");
+	}
+
+	
+	
 
 	private ResponseEntity<HttpCustomResponse> response(HttpStatus httpStatus, String message) {
 

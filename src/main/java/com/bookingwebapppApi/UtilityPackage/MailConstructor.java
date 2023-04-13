@@ -29,10 +29,25 @@ public class MailConstructor {
         email.setTo("devreadone@gmail.com");
         email.setSubject(Subject);
         email.setText(message);
-        email.setFrom(env.getProperty("devreadone@gmail.com"));
+        email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
         return email;
 
     }
+    
+    
+    public SimpleMailMessage constructNotifyMessage(Locale locale, String userEmail, String Username, String Subject, String message) 
+    	{
+
+    	SimpleMailMessage email = new SimpleMailMessage();
+    	email.setTo(userEmail);
+    	email.setSubject(Subject);
+    	email.setText(message);
+    	email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
+    	
+    	return email;
+
+    }
+
     
     public SimpleMailMessage contactSupportEmail(Locale locale, String firstname, String lastname, String email, String subject,
     														String phonenumber, String problem) {
@@ -46,7 +61,7 @@ public class MailConstructor {
         supportMail.setTo("devreadone@gmail.com");
         supportMail.setSubject(subject + " - ENQUIRIES FROM CUSTOMER");
         supportMail.setText(message);
-        supportMail.setFrom(env.getProperty("devreadone@gmail.com"));
+        supportMail.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
         return supportMail;
 
     	
@@ -64,7 +79,7 @@ public class MailConstructor {
         email.setTo(user.getEmail());
         email.setSubject("Valence Direct Booking Rental - User Password Reset Email");
         email.setText(message);
-        email.setFrom(env.getProperty("devreadone@gmail.com"));
+        email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
         return email;
 
     }
@@ -79,7 +94,7 @@ public class MailConstructor {
         email.setTo(user.getEmail());
         email.setSubject("Valence Direct Booking Rental - New User Email Verification");
         email.setText(message);
-        email.setFrom(env.getProperty("devreadone@gmail.com"));
+        email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
         return email;
 
     }
@@ -94,7 +109,7 @@ public class MailConstructor {
     	email.setTo(user.getEmail());
     	email.setSubject("Valence Direct Booking Rental - Identity Verification");
     	email.setText(message);
-    	email.setFrom(env.getProperty("devreadone@gmail.com"));
+    	email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
     	return email;
 
     }
@@ -110,7 +125,7 @@ public class MailConstructor {
     	email.setTo("akintundeidris67@gmail.com");
     	email.setSubject("Valence Direct Booking Rental - Identity Verification");
     	email.setText(message);
-    	email.setFrom(env.getProperty("devreadone@gmail.com"));
+    	email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
     	return email;
 
     }
@@ -127,7 +142,7 @@ public class MailConstructor {
     	email.setTo("readone.cybernet@gmail.com");
     	email.setSubject("Valence Direct Booking Rental - Identity Verification");
     	email.setText(message);
-    	email.setFrom(env.getProperty("devreadone@gmail.com"));
+    	email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
     	return email;
 
     }
@@ -152,7 +167,7 @@ public class MailConstructor {
         email.setTo(booking.getLoginUser().getEmail());
         email.setSubject("Valence Direct Booking Rental - New Booking Notification");
         email.setText(message);
-        email.setFrom(env.getProperty("devreadone@gmail.com"));
+        email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
         return email;
     }
 
@@ -174,7 +189,7 @@ public class MailConstructor {
         email.setTo(booking.getBookingEmailAddress());
         email.setSubject("Valence Direct Booking Rental - New Booking Notification");
         email.setText(message);
-        email.setFrom(env.getProperty("devreadone@gmail.com"));
+        email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
         return email;
     }
 
@@ -200,7 +215,7 @@ public class MailConstructor {
         email.setTo(propertyOwner.getEmail());
         email.setSubject("Valence Direct Booking Rental - New Booking Notification");
         email.setText(message);
-        email.setFrom(env.getProperty("devreadone@gmail.com"));
+        email.setFrom(env.getProperty("azeezridwanaws4@gmail.com"));
         return email;
 
     }

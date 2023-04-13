@@ -255,6 +255,23 @@ public class UserProfileResource {
 	}
 	
 	
+	@PreAuthorize("hasAnyAuthority('user:delete')")
+	@PostMapping("/sendNotification")
+	public ResponseEntity<HttpCustomResponse> sendNotification(HttpServletRequest request, 
+			@RequestParam("notifyMessage") String notifyMessage, @RequestParam("notifySubject") String notifySubject, 
+			@RequestParam("username") String username) {
+
+		Userr user = userService.findByUsername(username);
+		
+		SimpleMailMessage email = mailConstructor.constructNotifyMessage(request.getLocale(), user.getEmail(), username, notifySubject, notifyMessage);
+
+		mailSender.send(email);
+		
+		return response(HttpStatus.OK, "Notification sent to user Successfully");
+
+	}
+
+	
 	@PreAuthorize("hasAnyAuthority('user:read')")
 	@PostMapping("/support")
 	public ResponseEntity<HttpCustomResponse> contactSuport(HttpServletRequest request, @RequestParam("firstname") String firstname,

@@ -94,11 +94,11 @@ public class BookingServiceImpl implements BookingService {
 
         bookingRepository.save(booking);
 
-        CheckInAndOutDate checkInAndOutDate = new CheckInAndOutDate();
+        /*CheckInAndOutDate checkInAndOutDate = new CheckInAndOutDate();
         checkInAndOutDate.setCheckInDate(checkInDateLocalDate);
         checkInAndOutDate.setCheckOutDate(checkOutDateLocalDate);
         checkInAndOutDate.setProperty(property);
-        checkInAndOutDateService.save(checkInAndOutDate);
+        checkInAndOutDateService.save(checkInAndOutDate);*/
 
         return booking;
     }
