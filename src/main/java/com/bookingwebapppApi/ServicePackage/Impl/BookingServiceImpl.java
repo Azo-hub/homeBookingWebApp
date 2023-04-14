@@ -62,6 +62,15 @@ public class BookingServiceImpl implements BookingService {
         List<CheckInAndOutDate> dbCheckInAndOutDateList = checkInAndOutDateService.findAll();
 
         for (CheckInAndOutDate dbCheckInAndOutDate : dbCheckInAndOutDateList) {
+        	
+        	if (dbCheckInAndOutDate.getCheckInDate() == checkInDateLocalDate && 
+					dbCheckInAndOutDate.getProperty().getId() == bookingPropertyId) {
+
+				throw new PropertyBookingExistException("Booking Already Exist!");
+
+			}
+
+        	
             if (dbCheckInAndOutDate.getCheckInDate() == checkInDateLocalDate
                     && dbCheckInAndOutDate.getCheckOutDate() == checkOutDateLocalDate
                     && dbCheckInAndOutDate.getProperty().getId() == bookingPropertyId) {

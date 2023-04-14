@@ -64,7 +64,7 @@ public class BookingResource {
 		List<CheckInAndOutDate> dbCheckInAndOutDateList = checkInAndOutDateService.findAll();
 
 		for (CheckInAndOutDate dbCheckInAndOutDate : dbCheckInAndOutDateList) {
-			if (dbCheckInAndOutDate.getCheckInDate() == checkInDateLocalDate
+			if (dbCheckInAndOutDate.getCheckInDate() == checkInDateLocalDate 
 					&& dbCheckInAndOutDate.getCheckOutDate() == checkOutDateLocalDate) {
 
 				throw new PropertyBookingExistException("");
@@ -93,6 +93,15 @@ public class BookingResource {
 		List<CheckInAndOutDate> dbCheckInAndOutDateList = checkInAndOutDateService.findAll();
 
 		for (CheckInAndOutDate dbCheckInAndOutDate : dbCheckInAndOutDateList) {
+			
+			if (dbCheckInAndOutDate.getCheckInDate() == checkInDateLocalDate && 
+					dbCheckInAndOutDate.getProperty().getId() == PropertyId) {
+
+				throw new PropertyBookingExistException("Booking Already Exist!");
+
+			}
+
+			
 			if (dbCheckInAndOutDate.getCheckInDate() == checkInDateLocalDate
 					&& dbCheckInAndOutDate.getCheckOutDate() == checkOutDateLocalDate
 					&& dbCheckInAndOutDate.getProperty().getId() == PropertyId) {
