@@ -40,5 +40,9 @@ public interface UserService {
 
     void deleteUserById(Long userId);
 
+	List<Userr> searchUserByUsername(String searchInput);
+
+	List<Userr> searchUserByEmail(String searchInput);
+
 
 }

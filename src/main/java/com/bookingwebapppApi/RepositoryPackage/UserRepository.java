@@ -1,5 +1,7 @@
 package com.bookingwebapppApi.RepositoryPackage;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.bookingwebapppApi.ModelPackage.Userr;
+import com.bookingwebapppApi.ServicePackage.Impl.User;
 
 @Repository
 @Transactional
@@ -23,5 +26,9 @@ public interface UserRepository extends JpaRepository<Userr, Long> {
     @Query("UPDATE Userr u SET u.failedAttempt = ?1 WHERE u.username = ?2")
     @Modifying
     public void updateFailedAttempt(long failedAttempt, String username);
+
+	List<Userr> findByUsernameContaining(String searchInput);
+
+	List<Userr> findByEmailContaining(String searchInput);
 
 }

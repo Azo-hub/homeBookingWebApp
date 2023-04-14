@@ -1,5 +1,6 @@
 package com.bookingwebapppApi.ServicePackage.Impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -176,6 +177,54 @@ public class UserServiceImpl implements UserService {
         // TODO Auto-generated method stub
         return userRepository.findAll();
     }
+    
+    
+    
+    @Override
+    public List<Userr> searchUserByUsername(String searchInput) {
+
+		List<Userr> userList = userRepository.findByUsernameContaining(searchInput);
+		
+		List<Userr> filteredUser = new ArrayList<>();
+		
+		for (Userr eachUser : userList) {
+			if (!eachUser.getRole().equals("ROLE_ADMIN")) {
+
+				filteredUser.add(eachUser);
+
+			}
+		}
+		
+		return filteredUser;
+
+		
+    }
+    
+    
+    @Override
+    public List<Userr> searchUserByEmail(String searchInput) {
+
+		List<Userr> userList = userRepository.findByEmailContaining(searchInput);
+		
+		List<Userr> filteredUser = new ArrayList<>();
+		
+		for (Userr eachUser : userList) {
+			if (!eachUser.getRole().equals("ROLE_ADMIN")) {
+
+				filteredUser.add(eachUser);
+
+			}
+		}
+		
+		return filteredUser;
+
+		
+    }
+
+    
+    
+    
+    
 
     private Role getRoleEnumName(String role) {
         return Role.valueOf(role.toUpperCase());

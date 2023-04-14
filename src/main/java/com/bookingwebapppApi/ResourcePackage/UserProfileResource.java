@@ -129,6 +129,27 @@ public class UserProfileResource {
 		return new ResponseEntity<>(filteredUser, HttpStatus.OK);
 
 	}
+	
+	
+	@PreAuthorize("hasAnyAuthority('user:delete')")
+	@PostMapping("/searchUser")
+	public ResponseEntity<List<Userr>> searchUsers(@RequestParam("searchInput") String searchInput) {
+
+		List<Userr> searchUser = new ArrayList<>();
+		List<Userr> userByUsername = userService.searchUserByUsername(searchInput);
+		List<Userr> userByEmail = userService.searchUserByEmail(searchInput);
+		
+		searchUser.addAll(userByUsername);
+		searchUser.addAll(userByEmail);
+
+		
+		
+
+		return new ResponseEntity<>(searchUser, HttpStatus.OK);
+
+	}
+
+	
 
 	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/uploadIdentityImage")
