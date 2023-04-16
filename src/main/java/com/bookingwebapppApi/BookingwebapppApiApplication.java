@@ -33,7 +33,7 @@ import com.cloudinary.utils.ObjectUtils;
 @EnableScheduling
 public class BookingwebapppApiApplication /* implements CommandLineRunner */ {
 	
-/*	@Autowired
+	/*@Autowired
 	private JavaMailSender mailSender;
 
 	@Autowired
@@ -92,19 +92,19 @@ public class BookingwebapppApiApplication /* implements CommandLineRunner */ {
 
     
     
-   /*
+  /* 
     @Override
     public void run(String ...args) throws Exception {
     	
-    	Userr newUser = userService.createUser("akintundeidris67@gmail.com", "edris", "ROLE_ADMIN");
+    	Userr newUser = userService.createUser("readone.cybernet@gmail.com", "readone", "ROLE_ADMIN");
 
 		String password = SecurityUtility.randomPassword();
 		String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
 		newUser.setPassword(encryptedPassword);
 
-		newUser.setFirstname("Idris");
+		newUser.setFirstname("Readone");
 
-		newUser.setLastname("Akintunde");
+		newUser.setLastname("Azeez");
 		
 		newUser.setIsIdcard(true);
 		

@@ -48,6 +48,16 @@ public class Booking {
     private String bookingState;
 
     private String bookingZipCode;
+    
+    public Long getNoOfDays() {
+		return noOfDays;
+	}
+
+	public void setNoOfDays(Long noOfDays) {
+		this.noOfDays = noOfDays;
+	}
+
+	private Long noOfDays;
 
 	public Long getId() {
 		return id;

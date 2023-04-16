@@ -2,6 +2,7 @@ package com.bookingwebapppApi.ServicePackage.Impl;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookingwebapppApi.ExceptionPackage.PropertyBookingExistException;
+import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
 import com.bookingwebapppApi.ModelPackage.Booking;
 import com.bookingwebapppApi.ModelPackage.CheckInAndOutDate;
 import com.bookingwebapppApi.ModelPackage.Property;
@@ -20,7 +22,7 @@ import com.bookingwebapppApi.ServicePackage.PropertyService;
 
 
 @Service
-public class BookingServiceImpl implements BookingService {
+public class BookingServiceImpl implements BookingService  {
     @Autowired
     private BookingRepository bookingRepository;
 
@@ -43,10 +45,11 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.save(booking);
     }
 
-    @Override
+    
+	@Override
     public Booking findById(Long id) {
         // TODO Auto-generated method stub
-        return null;
+        return bookingRepository.getReferenceById(id);
     }
 
     @Override
@@ -93,8 +96,12 @@ public class BookingServiceImpl implements BookingService {
         booking.setBookingEmailAddress(bookingEmailAddress);
         booking.setBookingPhonehomeNumber(bookingHomePhoneNumber);
         booking.setBookingPhoneNumber(bookingPhoneNumber);
+        booking.setNoOfDays(bookingNoOfDays);
+        booking.setBookingCity(bookingCity);
+        booking.setBookingState(bookingState);
         booking.setBookingCountry(bookingCountry);
         booking.setBookingStreet(bookingStreet);
+        booking.setBookingZipCode(bookingZipCode);
 
         double subPrice = bookingNoOfDays * property.getPropertyPrice();
 
@@ -118,4 +125,31 @@ public class BookingServiceImpl implements BookingService {
 
     }
 
+	@Override
+	public List<Booking> findAll() {
+		// TODO Auto-generated method stub
+		return bookingRepository.findAll();
+	}
+
+	
+	@Override
+	public List<Booking> findByLoginUser(Userr loginUserId){
+		
+		
+		return bookingRepository.findByLoginUser(loginUserId);
+	}
+	
+	
+	@Override
+    public List<Booking> findByBookingFirstNameContaining(String searchInput) {
+
+		List<Booking> bookingList = bookingRepository.findByBookingFirstNameContaining(searchInput);
+
+				
+		return bookingList;
+
+		
+    }
+
+	
 }
