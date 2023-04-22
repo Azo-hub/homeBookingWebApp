@@ -2,6 +2,8 @@ package com.bookingwebapppApi.ServicePackage.Impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.bookingwebapppApi.RepositoryPackage.ReviewRepository;
 import com.bookingwebapppApi.ServicePackage.ReviewService;
 
 @Service
+@Transactional
 public class ReviewServiceImpl implements ReviewService {
 	
 	@Autowired
@@ -38,6 +41,13 @@ public class ReviewServiceImpl implements ReviewService {
 		review.setProperty(property);
 		reviewRepository.save(review);
 		
+		
+	}
+
+	@Override
+	public void deleteByProperty(Property property) {
+		// TODO Auto-generated method stub
+		reviewRepository.deleteByProperty(property);
 		
 	}
 

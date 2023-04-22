@@ -13,4 +13,6 @@ public interface ReviewService {
 
 	void createReview(String reviewContent, String reviewAuthor, String reviewLocation, Property property);
 
+	void deleteByProperty(Property property);
+
 }

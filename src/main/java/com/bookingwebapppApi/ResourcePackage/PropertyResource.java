@@ -101,6 +101,7 @@ public class PropertyResource {
 	@PostMapping("/deleteProperty")
 	public ResponseEntity<HttpCustomResponse> onDelete(@RequestParam("deletePropertyId") Long id) {
 
+		reviewService.deleteByProperty(propertyService.findById(id));
 		propertyService.deletePropertyById(id);
 
 		return response(HttpStatus.OK, "Property deleted Successfully!");

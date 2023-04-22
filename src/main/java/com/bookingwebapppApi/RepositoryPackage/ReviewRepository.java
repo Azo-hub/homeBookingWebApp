@@ -13,4 +13,6 @@ public interface ReviewRepository extends JpaRepository <Review, Long> {
 
 	List<Review> findByProperty(Property property);
 
+	void deleteByProperty(Property property);
+
 }

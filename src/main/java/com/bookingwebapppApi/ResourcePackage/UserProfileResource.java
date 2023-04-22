@@ -65,7 +65,7 @@ public class UserProfileResource {
 			@RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
 			@RequestParam("dateOfBirth") String dOB ) 
 					throws UserNotFoundException, EmailExistException, UsernameExistException, PasswordNotMatchException {
-
+		
 		Userr currentUser = userService.findByUsername(currentUsername);
 
 		if (currentUser == null) {

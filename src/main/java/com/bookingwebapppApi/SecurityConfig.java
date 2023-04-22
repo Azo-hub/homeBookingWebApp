@@ -56,21 +56,38 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http
                 .getSharedObject(AuthenticationManagerBuilder.class);
 
         authenticationManagerBuilder.userDetailsService(userSecurityService).passwordEncoder(bCryptPasswordEncoder());
+        
+        http
+		.authorizeHttpRequests(auth -> {
+			auth.antMatchers(SecurityConstant.PUBLIC_URLS).permitAll();
+			auth.anyRequest().authenticated();
+		});
+        http
+                .csrf(csrf -> csrf.disable())
+                .cors().and()
+                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(handling -> handling.accessDeniedHandler(jwtAccessDeniedHandler)
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)).addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/?logout")
+                        .permitAll()).rememberMe(me -> me
+                .tokenValiditySeconds(3 * 24 * 60 * 60).tokenRepository(persistentTokenRepository())); 
+            		
 
-       http.authorizeRequests().antMatchers(SecurityConstant.PUBLIC_URLS).permitAll().anyRequest().authenticated();
 
-        http.csrf().disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      /* http.authorizeRequests().antMatchers(SecurityConstant.PUBLIC_URLS).permitAll().anyRequest().authenticated(); */
+
+       /* http.csrf().disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().accessDeniedHandler(jwtAccessDeniedHandler)
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/?logout")
                 .permitAll().and().rememberMe()
-                .tokenValiditySeconds(3 * 24 * 60 * 60).tokenRepository(persistentTokenRepository()); 
+                .tokenValiditySeconds(3 * 24 * 60 * 60).tokenRepository(persistentTokenRepository()); */
                         		
 
 
@@ -78,7 +95,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
+    PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
         return tokenRepository;
@@ -86,7 +103,7 @@ public class SecurityConfig {
 
 
     @Bean
-    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration)
+    AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
