@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bookingwebapppApi.ModelPackage.Property;
 import com.bookingwebapppApi.ModelPackage.Review;
+import com.bookingwebapppApi.ServicePackage.CheckInAndOutDateService;
 import com.bookingwebapppApi.ServicePackage.PropertyService;
 import com.bookingwebapppApi.ServicePackage.ReviewService;
 import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
@@ -26,6 +27,9 @@ public class PropertyResource {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private CheckInAndOutDateService checkInAndOutDateService;
 
 	@PreAuthorize("hasAnyAuthority('user:update')")
 	@PostMapping("/editProperty")
@@ -100,7 +104,8 @@ public class PropertyResource {
 	@PreAuthorize("hasAnyAuthority('user:update')")
 	@PostMapping("/deleteProperty")
 	public ResponseEntity<HttpCustomResponse> onDelete(@RequestParam("deletePropertyId") Long id) {
-
+		
+		checkInAndOutDateService.deleteByProperty(propertyService.findById(id));
 		reviewService.deleteByProperty(propertyService.findById(id));
 		propertyService.deletePropertyById(id);
 

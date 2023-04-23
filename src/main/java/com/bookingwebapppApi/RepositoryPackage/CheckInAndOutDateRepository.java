@@ -17,4 +17,5 @@ public interface CheckInAndOutDateRepository extends JpaRepository<CheckInAndOut
     List<CheckInAndOutDate> findByCheckInDate(Date inViewCheckInDate);
     CheckInAndOutDate findByCheckOutDate(Date inViewCheckInDate);
     CheckInAndOutDate findByProperty(Property property);
+	void deleteByProperty(Property property);
 }
