@@ -51,9 +51,9 @@ public class BookingwebapppApiApplication /* implements CommandLineRunner */ {
 
 	public static void main(String[] args) {
 		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-				"cloud_name", "azostore", // insert here you cloud name
-				"api_key", "873821249613849", // insert here your api code
-				"api_secret", "GPu-lx7TZYpi8VXxeo-8mvW0ri4")); // insert here your api secret
+				"cloud_name", "*********", // insert here you cloud name
+				"api_key", "***********", // insert here your api code
+				"api_secret", "****************")); // insert here your api secret
 		SingletonManager manager = new SingletonManager();
 		manager.setCloudinary(cloudinary);
 		manager.init();
@@ -71,12 +71,12 @@ public class BookingwebapppApiApplication /* implements CommandLineRunner */ {
     
     
     @Bean
-	public CorsFilter corsFilter() {
+	CorsFilter corsFilter() {
 
 		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(true);
-		//corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+		//corsConfiguration.setAllowedOrigins(Collections.singletonList(angularFrontendLocalHostUrl));
 		corsConfiguration.setAllowedOrigins(Arrays.asList(angularFrontendLocalHostUrl,angularFrontendRemoteUrl));
 		corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
 				"MediaType", "Accept", "Jwt-Token", "Authorization", "Origin, Accept", "X-Requested-With",
