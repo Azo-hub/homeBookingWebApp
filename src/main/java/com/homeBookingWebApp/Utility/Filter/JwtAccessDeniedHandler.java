@@ -14,9 +14,9 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
-import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
-import com.bookingwebapppApi.UtilityPackage.SecurityConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.homeBookingWebApp.Utility.HttpCustomResponse;
+import com.homeBookingWebApp.Utility.SecurityConstant;
 
 @Component
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {

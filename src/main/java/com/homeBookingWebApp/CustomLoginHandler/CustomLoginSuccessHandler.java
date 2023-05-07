@@ -5,9 +5,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 
-import com.bookingwebapppApi.ModelPackage.UserPrincipal;
-import com.bookingwebapppApi.ModelPackage.Userr;
-import com.bookingwebapppApi.ServicePackage.UserService;
+import com.homeBookingWebApp.Model.UserPrincipal;
+import com.homeBookingWebApp.Model.Userr;
+import com.homeBookingWebApp.Service.UserService;
 
 @Component
 public class CustomLoginSuccessHandler {

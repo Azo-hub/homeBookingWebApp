@@ -1,4 +1,4 @@
-package com.bookingwebapppApi.UtilityPackage;
+package com.homeBookingWebApp.Utility;
 
 import static java.util.Arrays.stream;
 
@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,11 +19,14 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.bookingwebapppApi.ModelPackage.UserPrincipal;
+import com.homeBookingWebApp.Model.UserPrincipal;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class JWTTokenProvider {
-    @Value("${jwt.secret}")
+    
+	@Value("${jwt.secret}")
     private String secret;
 
     /* method to generate the token */

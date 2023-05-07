@@ -2,15 +2,15 @@ package com.homeBookingWebApp.Service.Impl;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookingwebapppApi.ModelPackage.Property;
-import com.bookingwebapppApi.ModelPackage.Review;
-import com.bookingwebapppApi.RepositoryPackage.ReviewRepository;
-import com.bookingwebapppApi.ServicePackage.ReviewService;
+import com.homeBookingWebApp.Model.Property;
+import com.homeBookingWebApp.Model.Review;
+import com.homeBookingWebApp.Repository.ReviewRepository;
+import com.homeBookingWebApp.Service.ReviewService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional

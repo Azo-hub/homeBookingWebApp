@@ -1,9 +1,10 @@
-package com.bookingwebapppApi.UtilityPackage;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.http.HttpStatus;
+package com.homeBookingWebApp.Utility;
 
 import java.util.Date;
+
+import org.springframework.http.HttpStatus;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class HttpCustomResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy hh:mm:ss", timezone = "Gmt+1")

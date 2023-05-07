@@ -2,23 +2,21 @@ package com.homeBookingWebApp.Service.Impl;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookingwebapppApi.ExceptionPackage.PropertyBookingExistException;
-import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
-import com.bookingwebapppApi.ModelPackage.Booking;
-import com.bookingwebapppApi.ModelPackage.CheckInAndOutDate;
-import com.bookingwebapppApi.ModelPackage.Property;
-import com.bookingwebapppApi.ModelPackage.Userr;
-import com.bookingwebapppApi.RepositoryPackage.BookingRepository;
-import com.bookingwebapppApi.ServicePackage.BookingService;
-import com.bookingwebapppApi.ServicePackage.CheckInAndOutDateService;
-import com.bookingwebapppApi.ServicePackage.PropertyService;
+import com.homeBookingWebApp.Exception.PropertyBookingExistException;
+import com.homeBookingWebApp.Model.Booking;
+import com.homeBookingWebApp.Model.CheckInAndOutDate;
+import com.homeBookingWebApp.Model.Property;
+import com.homeBookingWebApp.Model.Userr;
+import com.homeBookingWebApp.Repository.BookingRepository;
+import com.homeBookingWebApp.Service.BookingService;
+import com.homeBookingWebApp.Service.CheckInAndOutDateService;
+import com.homeBookingWebApp.Service.PropertyService;
 
 
 @Service

@@ -17,8 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.bookingwebapppApi.UtilityPackage.JWTTokenProvider;
-import com.bookingwebapppApi.UtilityPackage.SecurityConstant;
+import com.homeBookingWebApp.Utility.JWTTokenProvider;
+import com.homeBookingWebApp.Utility.SecurityConstant;
 
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {

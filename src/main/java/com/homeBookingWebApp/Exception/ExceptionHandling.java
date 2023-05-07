@@ -3,8 +3,6 @@ package com.homeBookingWebApp.Exception;
 import java.io.IOException;
 import java.util.Objects;
 
-import javax.persistence.NoResultException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -21,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
+import com.homeBookingWebApp.Utility.HttpCustomResponse;
+
+import jakarta.persistence.NoResultException;
 
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {

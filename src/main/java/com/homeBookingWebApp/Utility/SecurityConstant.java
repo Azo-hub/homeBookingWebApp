@@ -1,4 +1,4 @@
-package com.bookingwebapppApi.UtilityPackage;
+package com.homeBookingWebApp.Utility;
 
 public class SecurityConstant {
     public static final long EXPIRATION_TIME = 24 * 60 * 60 * 1000; // 24 hours
