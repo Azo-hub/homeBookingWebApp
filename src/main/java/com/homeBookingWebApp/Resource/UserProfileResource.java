@@ -1,12 +1,9 @@
 package com.homeBookingWebApp.Resource;
 
 import java.security.Principal;
-
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,22 +22,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bookingwebapppApi.ExceptionPackage.EmailExistException;
-import com.bookingwebapppApi.ExceptionPackage.PasswordNotMatchException;
-import com.bookingwebapppApi.ExceptionPackage.PropertyBookingExistException;
-import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
-import com.bookingwebapppApi.ExceptionPackage.UsernameExistException;
-import com.bookingwebapppApi.ModelPackage.CheckInAndOutDate;
-import com.bookingwebapppApi.ModelPackage.Property;
-import com.bookingwebapppApi.ModelPackage.Role;
-import com.bookingwebapppApi.ModelPackage.Userr;
-import com.bookingwebapppApi.ServicePackage.UserService;
-import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
-import com.bookingwebapppApi.UtilityPackage.MailConstructor;
-import com.bookingwebapppApi.UtilityPackage.SecurityUtility;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;
 import com.cloudinary.utils.ObjectUtils;
+import com.homeBookingWebApp.Exception.EmailExistException;
+import com.homeBookingWebApp.Exception.PasswordNotMatchException;
+import com.homeBookingWebApp.Exception.UserNotFoundException;
+import com.homeBookingWebApp.Exception.UsernameExistException;
+import com.homeBookingWebApp.Model.Role;
+import com.homeBookingWebApp.Model.Userr;
+import com.homeBookingWebApp.Service.UserService;
+import com.homeBookingWebApp.Utility.HttpCustomResponse;
+import com.homeBookingWebApp.Utility.MailConstructor;
+import com.homeBookingWebApp.Utility.SecurityUtility;
 
 @RestController
 public class UserProfileResource {
