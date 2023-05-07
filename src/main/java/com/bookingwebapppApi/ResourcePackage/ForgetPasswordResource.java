@@ -1,4 +1,4 @@
-package com.homeBookingWebApp.Resource;
+package com.bookingwebapppApi.ResourcePackage;
 
 import java.util.UUID;
 
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.homeBookingWebApp.Exception.UserNotFoundException;
-import com.homeBookingWebApp.Model.Userr;
-import com.homeBookingWebApp.Service.UserService;
-import com.homeBookingWebApp.Utility.HttpCustomResponse;
-import com.homeBookingWebApp.Utility.MailConstructor;
-import com.homeBookingWebApp.Utility.SecurityUtility;
+import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
+import com.bookingwebapppApi.ModelPackage.Userr;
+import com.bookingwebapppApi.ServicePackage.UserService;
+import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
+import com.bookingwebapppApi.UtilityPackage.MailConstructor;
+import com.bookingwebapppApi.UtilityPackage.SecurityUtility;
 
 @RestController
 public class ForgetPasswordResource {

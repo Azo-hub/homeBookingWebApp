@@ -1,4 +1,4 @@
-package com.homeBookingWebApp.Resource;
+package com.bookingwebapppApi.ResourcePackage;
 
 import java.util.Date;
 
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.homeBookingWebApp.Model.UserPrincipal;
-import com.homeBookingWebApp.Model.Userr;
-import com.homeBookingWebApp.Service.UserService;
-import com.homeBookingWebApp.Utility.JWTTokenProvider;
-import com.homeBookingWebApp.Utility.SecurityConstant;
+import com.bookingwebapppApi.ModelPackage.UserPrincipal;
+import com.bookingwebapppApi.ModelPackage.Userr;
+import com.bookingwebapppApi.ServicePackage.UserService;
+import com.bookingwebapppApi.UtilityPackage.JWTTokenProvider;
+import com.bookingwebapppApi.UtilityPackage.SecurityConstant;
 
 @RestController
 public class LoginResource {
