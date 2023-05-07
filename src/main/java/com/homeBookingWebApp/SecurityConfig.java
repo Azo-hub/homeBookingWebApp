@@ -1,5 +1,7 @@
 package com.homeBookingWebApp;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.logout;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,18 +22,18 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.bookingwebapppApi.CustomLoginHandler.CustomLoginFailureHandler;
-import com.bookingwebapppApi.CustomLoginHandler.CustomLoginSuccessHandler;
-import com.bookingwebapppApi.ServicePackage.UserSecurityService;
-import com.bookingwebapppApi.UtilityPackage.SecurityConstant;
-import com.bookingwebapppApi.UtilityPackage.SecurityUtility;
-import com.bookingwebapppApi.UtiltyPackage.Filter.JwtAccessDeniedHandler;
-import com.bookingwebapppApi.UtiltyPackage.Filter.JwtAuthenticationEntryPoint;
-import com.bookingwebapppApi.UtiltyPackage.Filter.JwtAuthorizationFilter;
+import com.homeBookingWebApp.CustomLoginHandler.CustomLoginFailureHandler;
+import com.homeBookingWebApp.CustomLoginHandler.CustomLoginSuccessHandler;
+import com.homeBookingWebApp.Service.UserSecurityService;
+import com.homeBookingWebApp.Utility.SecurityConstant;
+import com.homeBookingWebApp.Utility.SecurityUtility;
+import com.homeBookingWebApp.Utility.Filter.JwtAccessDeniedHandler;
+import com.homeBookingWebApp.Utility.Filter.JwtAuthenticationEntryPoint;
+import com.homeBookingWebApp.Utility.Filter.JwtAuthorizationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 public class SecurityConfig {
     @Autowired
     private Environment env;
