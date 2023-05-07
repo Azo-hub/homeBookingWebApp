@@ -20,17 +20,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookingwebapppApi.ExceptionPackage.EmailExistException;
-import com.bookingwebapppApi.ExceptionPackage.InvalidTokenException;
-import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
-import com.bookingwebapppApi.ExceptionPackage.UsernameExistException;
-import com.bookingwebapppApi.ModelPackage.Role;
-import com.bookingwebapppApi.ModelPackage.Userr;
-import com.bookingwebapppApi.ServicePackage.UserSecurityService;
-import com.bookingwebapppApi.ServicePackage.UserService;
-import com.bookingwebapppApi.UtilityPackage.MailConstructor;
-import com.bookingwebapppApi.UtilityPackage.PasswordResetToken;
-import com.bookingwebapppApi.UtilityPackage.SecurityUtility;
+import com.homeBookingWebApp.Exception.EmailExistException;
+import com.homeBookingWebApp.Exception.InvalidTokenException;
+import com.homeBookingWebApp.Exception.UserNotFoundException;
+import com.homeBookingWebApp.Exception.UsernameExistException;
+import com.homeBookingWebApp.Model.Userr;
+import com.homeBookingWebApp.Service.UserSecurityService;
+import com.homeBookingWebApp.Service.UserService;
+import com.homeBookingWebApp.Utility.MailConstructor;
+import com.homeBookingWebApp.Utility.PasswordResetToken;
+import com.homeBookingWebApp.Utility.SecurityUtility;
 
 @RestController
 public class NewUserRegistrationResource {
