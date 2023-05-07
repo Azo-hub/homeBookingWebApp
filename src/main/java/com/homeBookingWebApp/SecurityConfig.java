@@ -1,6 +1,6 @@
 package com.homeBookingWebApp;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.logout;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 import javax.sql.DataSource;
 
@@ -65,33 +65,22 @@ public class SecurityConfig {
         authenticationManagerBuilder.userDetailsService(userSecurityService).passwordEncoder(bCryptPasswordEncoder());
         
         http
-		.authorizeHttpRequests(auth -> {
-			auth.antMatchers(SecurityConstant.PUBLIC_URLS).permitAll();
-			auth.anyRequest().authenticated();
+			.authorizeHttpRequests(auth -> {
+				auth.requestMatchers(SecurityConstant.PUBLIC_URLS).permitAll();
+				auth.anyRequest().authenticated();
 		});
+        
+        
         http
-                .csrf(csrf -> csrf.disable())
-                .cors().and()
-                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(handling -> handling.accessDeniedHandler(jwtAccessDeniedHandler)
-                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)).addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/?logout")
-                        .permitAll()).rememberMe(me -> me
-                .tokenValiditySeconds(3 * 24 * 60 * 60).tokenRepository(persistentTokenRepository())); 
-            		
-
-
-      /* http.authorizeRequests().antMatchers(SecurityConstant.PUBLIC_URLS).permitAll().anyRequest().authenticated(); */
-
-       /* http.csrf().disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().exceptionHandling().accessDeniedHandler(jwtAccessDeniedHandler)
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and().addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/?logout")
-                .permitAll().and().rememberMe()
-                .tokenValiditySeconds(3 * 24 * 60 * 60).tokenRepository(persistentTokenRepository()); */
-                        		
-
+            .csrf(csrf -> csrf.disable())
+            .cors(withDefaults())
+            .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .exceptionHandling(handling -> handling.accessDeniedHandler(jwtAccessDeniedHandler)
+                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)).addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+            .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/?logout")
+                    .permitAll()).rememberMe(me -> me
+            .tokenValiditySeconds(3 * 24 * 60 * 60).tokenRepository(persistentTokenRepository())); 
+        		
 
         return http.build();
     }
