@@ -74,8 +74,10 @@ public class SecurityConfig {
 				.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
 				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 						.logoutSuccessUrl("/?logout").permitAll())
-				.rememberMe(
-						me -> me.tokenValiditySeconds(3 * 24 * 60 * 60).tokenRepository(persistentTokenRepository()));
+		/*
+		 * .rememberMe( me -> me.tokenValiditySeconds(3 * 24 * 60 *
+		 * 60).tokenRepository(persistentTokenRepository()))
+		 */ ;
 
 		return http.build();
 	}
