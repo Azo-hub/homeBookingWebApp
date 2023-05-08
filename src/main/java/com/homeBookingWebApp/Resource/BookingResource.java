@@ -21,18 +21,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookingwebapppApi.ExceptionPackage.PropertyBookingExistException;
-import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
-import com.bookingwebapppApi.ModelPackage.Booking;
-import com.bookingwebapppApi.ModelPackage.CheckInAndOutDate;
-import com.bookingwebapppApi.ModelPackage.Property;
-import com.bookingwebapppApi.ModelPackage.Userr;
-import com.bookingwebapppApi.ServicePackage.BookingService;
-import com.bookingwebapppApi.ServicePackage.CheckInAndOutDateService;
-import com.bookingwebapppApi.ServicePackage.PropertyService;
-import com.bookingwebapppApi.ServicePackage.UserService;
-import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
-import com.bookingwebapppApi.UtilityPackage.MailConstructor;
+import com.homeBookingWebApp.Exception.PropertyBookingExistException;
+import com.homeBookingWebApp.Model.Booking;
+import com.homeBookingWebApp.Model.CheckInAndOutDate;
+import com.homeBookingWebApp.Model.Property;
+import com.homeBookingWebApp.Model.Userr;
+import com.homeBookingWebApp.Service.BookingService;
+import com.homeBookingWebApp.Service.CheckInAndOutDateService;
+import com.homeBookingWebApp.Service.PropertyService;
+import com.homeBookingWebApp.Service.UserService;
+import com.homeBookingWebApp.Utility.HttpCustomResponse;
+import com.homeBookingWebApp.Utility.MailConstructor;
 
 @RestController
 public class BookingResource {

@@ -6,9 +6,9 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.stereotype.Component;
 
-import com.bookingwebapppApi.ModelPackage.Userr;
-import com.bookingwebapppApi.ServicePackage.UserService;
-import com.bookingwebapppApi.ServicePackage.Impl.UserServiceImpl;
+import com.homeBookingWebApp.Model.Userr;
+import com.homeBookingWebApp.Service.UserService;
+import com.homeBookingWebApp.Service.Impl.UserServiceImpl;
 
 @Component
 public class CustomLoginFailureHandler {

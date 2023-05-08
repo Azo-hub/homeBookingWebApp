@@ -1,7 +1,6 @@
 package com.homeBookingWebApp.Resource;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +15,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bookingwebapppApi.ExceptionPackage.AccountVerifiedException;
-import com.bookingwebapppApi.ExceptionPackage.EmailExistException;
-import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
-import com.bookingwebapppApi.ExceptionPackage.UsernameExistException;
-import com.bookingwebapppApi.ModelPackage.Property;
-import com.bookingwebapppApi.ModelPackage.Userr;
-import com.bookingwebapppApi.ServicePackage.PropertyService;
-import com.bookingwebapppApi.ServicePackage.UserService;
-import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;
 import com.cloudinary.utils.ObjectUtils;
+import com.homeBookingWebApp.Exception.AccountVerifiedException;
+import com.homeBookingWebApp.Exception.EmailExistException;
+import com.homeBookingWebApp.Exception.UserNotFoundException;
+import com.homeBookingWebApp.Exception.UsernameExistException;
+import com.homeBookingWebApp.Model.Property;
+import com.homeBookingWebApp.Model.Userr;
+import com.homeBookingWebApp.Service.PropertyService;
+import com.homeBookingWebApp.Service.UserService;
+import com.homeBookingWebApp.Utility.HttpCustomResponse;
 
 @RestController
 public class AddNewPropertyResource {

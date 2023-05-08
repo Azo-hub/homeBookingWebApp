@@ -1,4 +1,4 @@
-package com.bookingwebapppApi.UtilityPackage;
+package com.homeBookingWebApp.Utility;
 
 import java.util.Locale;
 
@@ -7,9 +7,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
-import com.bookingwebapppApi.ModelPackage.Booking;
-import com.bookingwebapppApi.ModelPackage.Userr;
-import com.bookingwebapppApi.ServicePackage.UserService;
+import com.homeBookingWebApp.Model.Booking;
+import com.homeBookingWebApp.Model.Userr;
+import com.homeBookingWebApp.Service.UserService;
 
 @Component
 public class MailConstructor {

@@ -2,15 +2,15 @@ package com.homeBookingWebApp.Service.Impl;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookingwebapppApi.ModelPackage.CheckInAndOutDate;
-import com.bookingwebapppApi.ModelPackage.Property;
-import com.bookingwebapppApi.RepositoryPackage.CheckInAndOutDateRepository;
-import com.bookingwebapppApi.ServicePackage.CheckInAndOutDateService;
+import com.homeBookingWebApp.Model.CheckInAndOutDate;
+import com.homeBookingWebApp.Model.Property;
+import com.homeBookingWebApp.Repository.CheckInAndOutDateRepository;
+import com.homeBookingWebApp.Service.CheckInAndOutDateService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional

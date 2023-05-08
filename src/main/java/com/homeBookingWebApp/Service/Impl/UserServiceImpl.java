@@ -9,15 +9,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookingwebapppApi.ExceptionPackage.EmailExistException;
-import com.bookingwebapppApi.ExceptionPackage.UserNotFoundException;
-import com.bookingwebapppApi.ExceptionPackage.UsernameExistException;
-import com.bookingwebapppApi.ModelPackage.Role;
-import com.bookingwebapppApi.ModelPackage.Userr;
-import com.bookingwebapppApi.RepositoryPackage.PasswordResetTokenRepository;
-import com.bookingwebapppApi.RepositoryPackage.UserRepository;
-import com.bookingwebapppApi.ServicePackage.UserService;
-import com.bookingwebapppApi.UtilityPackage.PasswordResetToken;
+import com.homeBookingWebApp.Exception.EmailExistException;
+import com.homeBookingWebApp.Exception.UserNotFoundException;
+import com.homeBookingWebApp.Exception.UsernameExistException;
+import com.homeBookingWebApp.Model.Role;
+import com.homeBookingWebApp.Model.Userr;
+import com.homeBookingWebApp.Repository.PasswordResetTokenRepository;
+import com.homeBookingWebApp.Repository.UserRepository;
+import com.homeBookingWebApp.Service.UserService;
+import com.homeBookingWebApp.Utility.PasswordResetToken;
 
 @Service
 public class UserServiceImpl implements UserService {

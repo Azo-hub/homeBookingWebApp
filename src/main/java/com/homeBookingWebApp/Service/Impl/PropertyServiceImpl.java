@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookingwebapppApi.ModelPackage.Property;
-import com.bookingwebapppApi.RepositoryPackage.PropertyRepository;
-import com.bookingwebapppApi.ServicePackage.PropertyService;
+import com.homeBookingWebApp.Model.Property;
+import com.homeBookingWebApp.Repository.PropertyRepository;
+import com.homeBookingWebApp.Service.PropertyService;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {

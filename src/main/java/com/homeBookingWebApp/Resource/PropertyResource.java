@@ -7,17 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookingwebapppApi.ModelPackage.Property;
-import com.bookingwebapppApi.ModelPackage.Review;
-import com.bookingwebapppApi.ServicePackage.CheckInAndOutDateService;
-import com.bookingwebapppApi.ServicePackage.PropertyService;
-import com.bookingwebapppApi.ServicePackage.ReviewService;
-import com.bookingwebapppApi.UtilityPackage.HttpCustomResponse;
+import com.homeBookingWebApp.Model.Property;
+import com.homeBookingWebApp.Model.Review;
+import com.homeBookingWebApp.Service.CheckInAndOutDateService;
+import com.homeBookingWebApp.Service.PropertyService;
+import com.homeBookingWebApp.Service.ReviewService;
+import com.homeBookingWebApp.Utility.HttpCustomResponse;
 
 @RestController
 public class PropertyResource {
