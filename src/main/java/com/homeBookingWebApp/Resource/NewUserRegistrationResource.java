@@ -1,34 +1,24 @@
 package com.homeBookingWebApp.Resource;
 
-import java.util.Locale;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.homeBookingWebApp.Exception.EmailExistException;
-import com.homeBookingWebApp.Exception.InvalidTokenException;
 import com.homeBookingWebApp.Exception.UserNotFoundException;
 import com.homeBookingWebApp.Exception.UsernameExistException;
 import com.homeBookingWebApp.Model.Userr;
-import com.homeBookingWebApp.Service.UserSecurityService;
 import com.homeBookingWebApp.Service.UserService;
 import com.homeBookingWebApp.Utility.MailConstructor;
-import com.homeBookingWebApp.Utility.PasswordResetToken;
 import com.homeBookingWebApp.Utility.SecurityUtility;
 
 @RestController
@@ -42,34 +32,8 @@ public class NewUserRegistrationResource {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private UserSecurityService userSecurityService;
-
-	@GetMapping("/newUser")
-	public ResponseEntity<Userr> newUser(Locale locale, @RequestParam("token") String token)
-			throws InvalidTokenException {
-		PasswordResetToken passToken = userService.getPasswordResetToken(token);
-
-		if (passToken == null) {
-			throw new InvalidTokenException("Invalid Request");
-		}
-
-		Userr user = passToken.getUser();
-		String username = user.getUsername();
-		UserDetails userDetails = userSecurityService.loadUserByUsername(username);
-
-		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),
-				userDetails.getAuthorities());
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		Userr loginUser = userService.findByUsername(authentication.getName());
-
-		return new ResponseEntity<>(loginUser, HttpStatus.OK);
-	}
-
 	@PostMapping("/newUser")
-	public ResponseEntity<Userr> newUserPost(HttpServletRequest request,@RequestBody Userr user)
+	public ResponseEntity<Userr> newUserPost(HttpServletRequest request, @RequestBody Userr user)
 			throws UsernameExistException, UserNotFoundException, EmailExistException {
 
 		Userr newUser = userService.createUser(user.getEmail(), user.getUsername(), user.getRole());
@@ -77,11 +41,10 @@ public class NewUserRegistrationResource {
 		String password = SecurityUtility.randomPassword();
 		String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
 		newUser.setPassword(encryptedPassword);
-		
-		
+
 		/* Capitalizing first letter of the first name */
 
-		if (!user.getFirstname().trim().isEmpty()) {
+		if (user.getFirstname() != null && user.getFirstname().isBlank()) {
 
 			char FirstName_FirstChar = user.getFirstname().trim().charAt(0);
 
@@ -97,7 +60,7 @@ public class NewUserRegistrationResource {
 
 		/* Capitalizing first letter of the last name */
 
-		if (!user.getLastname().trim().isEmpty()) {
+		if (user.getLastname() != null && !user.getLastname().isBlank()) {
 
 			char LastName_FirstChar = user.getLastname().trim().charAt(0);
 
@@ -111,22 +74,17 @@ public class NewUserRegistrationResource {
 
 		}
 
-		
 		userService.save(newUser);
 
 		String token = UUID.randomUUID().toString();
 		userService.createPasswordResetTokenForUser(newUser, token);
 
+		SimpleMailMessage Email = mailConstructor.constructNewUserEmail(request.getLocale(), token, newUser, password);
 
-		SimpleMailMessage Email = mailConstructor.constructNewUserEmail(request.getLocale(), token, newUser,
-				password);
-		
 		mailSender.send(Email);
-		
 
 		return new ResponseEntity<>(newUser, HttpStatus.OK);
 
 	}
-
 
 }
