@@ -6,8 +6,8 @@ This project was built with Spring Boot as a way of learning spring boot api dev
 ## About the Project :link:
 The following technologies and solutions were present in this project as highlighted below:
 - Java 17;
-* Spring Boot version 2.7.12-SNAPSHOT; 
-+ Spring Security;
+* Spring Boot version 3.0.7-SNAPSHOT; 
++ Spring Security 6;
 - Jwt
 + Spring Data JPA;
 * Hibernate;
