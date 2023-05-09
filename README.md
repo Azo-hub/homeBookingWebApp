@@ -13,7 +13,8 @@ The following technologies and solutions were present in this project as highlig
 * Hibernate;
 - Postgres;
 + Cloudinary;
-- Gmail Smtp;
+* Gmail Smtp;
+- Docker;
 ### Some modules and services
 - Jwt User Authentication
 + Role-based Authorization
