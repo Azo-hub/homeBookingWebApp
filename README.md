@@ -2,7 +2,7 @@
 This project was built with Spring Boot as a way of learning spring boot api development and spring security with Jwt.
 ## Index :pushpin:
 - [About the Project](https://github.com/Azo-hub/homeBookingWebApp#about-the-project-link)
-* [License](https://github.com/Azo-hub/homeBookingWebApp#license)
+* [License](https://github.com/Azo-hub/homeBookingWebApp#license-memo)
 ## About the Project :link:
 The following technologies and solutions were present in this project as highlighted below:
 - Java 17;
