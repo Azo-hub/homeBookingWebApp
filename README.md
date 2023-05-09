@@ -1,7 +1,7 @@
 # HomeBookingWebApp - Rest Api :white_check_mark:
 This project was built with Spring Boot as a way of learning spring boot api development and spring security with Jwt.
 ## Index :pushpin:
-- [About the Project](https://github.com/Azo-hub/homeBookingWebApp#about-the-project)
+- [About the Project](https://github.com/Azo-hub/homeBookingWebApp#about-the-project-link)
 * [License](https://github.com/Azo-hub/homeBookingWebApp#license)
 ## About the Project :link:
 The following technologies and solutions were present in this project as highlighted below:
