@@ -8,14 +8,17 @@ The following technologies and solutions were present in this project as highlig
 - Java 17;
 * Spring Boot version 2.7.12-SNAPSHOT; 
 + Spring Security;
-- Spring Data JPA;
+- Jwt
++ Spring Data JPA;
 * Hibernate;
+- Postgre;
 + Cloudinary;
 - Gmail Smtp;
 ### Some modules and services
-- User Authentication
+- Jwt User Authentication
 + Role-based Authorization
-* Admin portal for site administrator to add new product and edit existing one
+* Add New Property Resource
+- New Booking Resource
 ## License :memo:
 [`Apache License 2.0`](https://github.com/Azo-hub/homeBookingWebApp/blob/master/LICENSE)
 
