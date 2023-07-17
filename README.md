@@ -18,8 +18,10 @@ The following technologies and solutions were present in this project as highlig
 + Docker;
 
 ### Some modules and services
-- Jwt Authentication
-
+- Jwt Authentication.
++ Role-based Authorization.
+* User Profile Page for each user.
+- Adding a new property.
 
 
 
@@ -34,11 +36,8 @@ The following technologies and solutions were present in this project as highlig
 
 
 
-+ Role-based Authorization
-* Social Login using gmail account
-+ Shopping Cart
-- Checkout page
-* Admin portal for site administrator to add new product and edit existing one
+
+
 ## License :memo:
 [`Apache License 2.0`](https://github.com/Azo-hub/AzoStore-Public/blob/master/LICENSE)
 
