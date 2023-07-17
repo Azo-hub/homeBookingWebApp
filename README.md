@@ -14,6 +14,8 @@ The following technologies and solutions were present in this project as highlig
 - Postgre;
 + Cloudinary;
 - Gmail Smtp;
+* Jwt Token;
++ Docker;
 
 
 
