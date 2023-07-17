@@ -1,5 +1,7 @@
 package com.bookingWebAppApi.Service.Impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,18 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 	public PaymentMethod getById(Long id) {
 		// TODO Auto-generated method stub
 		return paymentMethodRepository.getReferenceById(id);
+	}
+	
+	@Override
+	public List<PaymentMethod> getAllPaymentMethod() {
+		// TODO Auto-generated method stub
+		return paymentMethodRepository.findAll();
+	}
+	
+	@Override
+	public void removeCard(Long id) {
+		
+		paymentMethodRepository.deleteById(id);
 	}
 
 }

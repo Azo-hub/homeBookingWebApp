@@ -25,6 +25,7 @@ public class PaymentMethod {
 	private String paymentMethodBillingState;
 	private Long paymentMethodBillingZipCode;
 	private String paymentMethodBillingCountry;
+	private Boolean defaultPaymentMethod = false;	
 	
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "card_owner_id")
@@ -117,7 +118,12 @@ public class PaymentMethod {
 		this.cardOwner = cardOwner;
 	}
 	           
-
+	public Boolean getDefaultPaymentMethod() {
+		return defaultPaymentMethod;
+	}
+	public void setDefaultPaymentMethod(Boolean defaultPaymentMethod) {
+		this.defaultPaymentMethod = defaultPaymentMethod;
+	}
 
 
 }

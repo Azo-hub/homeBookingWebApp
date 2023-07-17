@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Booking {
@@ -54,6 +55,10 @@ public class Booking {
     private String noOfChildren;
     
     private String pets;
+    
+    @OneToOne
+    @JoinColumn(name = "paymentMethod_id")
+    private PaymentMethod paymentMethod;
     
     public Long getNoOfDays() {
 		return noOfDays;
@@ -215,6 +220,14 @@ public class Booking {
 
 	public void setPets(String pets) {
 		this.pets = pets;
+	}
+
+	public PaymentMethod getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 
 }

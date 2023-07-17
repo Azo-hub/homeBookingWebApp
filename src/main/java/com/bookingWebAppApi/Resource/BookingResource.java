@@ -2,13 +2,10 @@ package com.bookingWebAppApi.Resource;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,14 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bookingWebAppApi.Exception.PropertyBookingExistException;
 import com.bookingWebAppApi.Model.Booking;
 import com.bookingWebAppApi.Model.CheckInAndOutDate;
+import com.bookingWebAppApi.Model.PaymentMethod;
 import com.bookingWebAppApi.Model.Property;
 import com.bookingWebAppApi.Model.Userr;
 import com.bookingWebAppApi.Service.BookingService;
 import com.bookingWebAppApi.Service.CheckInAndOutDateService;
+import com.bookingWebAppApi.Service.PaymentMethodService;
 import com.bookingWebAppApi.Service.PropertyService;
 import com.bookingWebAppApi.Service.UserService;
 import com.bookingWebAppApi.Utility.HttpCustomResponse;
 import com.bookingWebAppApi.Utility.MailConstructor;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 public class BookingResource {
@@ -52,6 +53,9 @@ public class BookingResource {
 
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private PaymentMethodService paymentMethodService;
 
 	@PostMapping("/checkDateAvailability")
 	public ResponseEntity<HttpCustomResponse> checkDateAvailability(@RequestParam("checkInDate") String checkInDate,
@@ -135,14 +139,16 @@ public class BookingResource {
 			@RequestParam("checkOutDate") Date checkOutDate, @RequestParam("bookingNoOfDays") Long bookingNoOfDays,
 			@RequestParam("bookingPropertyId") Long bookingPropertyId, Principal principal,
 			@RequestParam("noOfGuest") String noOfGuest, @RequestParam("noOfChildren") String noOfChildren,
-			@RequestParam("pets") String pets ) throws PropertyBookingExistException {
+			@RequestParam("pets") String pets, @RequestParam("bookingPaymentMethodId") Long bookingPaymentMethodId ) throws PropertyBookingExistException {
 
 		Userr loginUser = userService.findByUsername(principal.getName());
+		
+		PaymentMethod paymentCard = paymentMethodService.getById(bookingPaymentMethodId);
 
 		Booking booking = bookingService.createNewBooking(bookingFirstName, bookingLastName, bookingEmailAddress,
 				bookingPhoneNumber, bookingHomePhoneNumber, bookingCountry, bookingStreet, bookingCity, bookingState,
 				bookingZipCode, checkInDate, checkOutDate, bookingNoOfDays, bookingPropertyId, loginUser, noOfGuest, 
-				noOfChildren, pets);
+				noOfChildren, pets, paymentCard);
 
 		SimpleMailMessage loginUserEmail = mailConstructor
 				.constructNewBookingEmailTravellerLoginUser(request.getLocale(), booking);

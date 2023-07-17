@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bookingWebAppApi.Exception.PropertyBookingExistException;
 import com.bookingWebAppApi.Model.Booking;
 import com.bookingWebAppApi.Model.CheckInAndOutDate;
+import com.bookingWebAppApi.Model.PaymentMethod;
 import com.bookingWebAppApi.Model.Property;
 import com.bookingWebAppApi.Model.Userr;
 import com.bookingWebAppApi.Repository.BookingRepository;
@@ -55,7 +56,7 @@ public class BookingServiceImpl implements BookingService  {
                                     String bookingPhoneNumber, String bookingHomePhoneNumber, String bookingCountry, String bookingStreet,
                                     String bookingCity, String bookingState, String bookingZipCode, Date checkInDate, Date checkOutDate,
                                     Long bookingNoOfDays, Long bookingPropertyId, Userr user, String noOfGuest, 
-                    				String noOfChildren, String pets) throws PropertyBookingExistException {
+                    				String noOfChildren, String pets, PaymentMethod paymentMethod) throws PropertyBookingExistException {
         // TODO Auto-generated method stub
 
         LocalDate checkInDateLocalDate = checkInDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -104,6 +105,7 @@ public class BookingServiceImpl implements BookingService  {
         booking.setNoOfGuest(noOfGuest);
         booking.setNoOfChildren(noOfChildren);
         booking.setPets(pets);
+        booking.setPaymentMethod(paymentMethod);
 
         double subPrice = bookingNoOfDays * property.getPropertyPrice();
 
