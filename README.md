@@ -17,7 +17,8 @@ The following technologies and solutions were present in this project as highlig
 * Jwt Token;
 + Docker;
 
-
+### Some modules and services
+- Jwt Authentication
 
 
 
@@ -31,8 +32,8 @@ The following technologies and solutions were present in this project as highlig
 
 
 
-### Some modules and services
-- User Authentication
+
+
 + Role-based Authorization
 * Social Login using gmail account
 + Shopping Cart
