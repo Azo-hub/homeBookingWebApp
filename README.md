@@ -9,7 +9,7 @@ The following technologies and solutions were present in this project as highlig
 * Spring Boot version 3.1.0;
 + Spring Security 6;
 - Spring Data JPA;
-- RestApi;
++ RestApi;
 * Hibernate;
 - Postgre;
 + Cloudinary;
