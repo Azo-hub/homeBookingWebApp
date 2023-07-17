@@ -24,20 +24,6 @@ The following technologies and solutions were present in this project as highlig
 - Adding a new property.
 
 
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
 ## License :memo:
 [`Apache License 2.0`](https://github.com/Azo-hub/AzoStore-Public/blob/master/LICENSE)
 
