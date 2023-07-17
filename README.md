@@ -1,5 +1,5 @@
 # WebAppApi - Api development :white_check_mark:
-HomeBookingWebAppAngularFrontend Backend
+This project was built with Spring Boot as a way of learning and testing some Spring Framework technologies. It is the backend logic to HomeBookingWebAppAngularFrontend.
 
 
 
