@@ -9,7 +9,11 @@ The following technologies and solutions were present in this project as highlig
 * Spring Boot version 3.1.0;
 + Spring Security 6;
 - Spring Data JPA;
+- RestApi;
 * Hibernate;
+- Postgre;
++ Cloudinary;
+- Gmail Smtp;
 
 
 
@@ -20,11 +24,11 @@ The following technologies and solutions were present in this project as highlig
 
 
  
-+ Thymeleaf View Template + Bootstrap;
-- Mysql;
-* Oauth2;
-+ Cloudinary;
-- Gmail Smtp;
+
+
+
+
+
 ### Some modules and services
 - User Authentication
 + Role-based Authorization
