@@ -20,8 +20,7 @@ The following technologies and solutions were present in this project as highlig
 ### Some modules and services
 - Jwt Authentication.
 + Role-based Authorization.
-* User Profile Page for each user.
-- Adding a new property.
+
 
 
 ## License :memo:
