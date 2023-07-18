@@ -11,7 +11,7 @@ The following technologies and solutions were present in this project as highlig
 - Spring Data JPA;
 + RestApi;
 * Hibernate;
-- Postgre;
+- Postgres;
 + Cloudinary;
 - Gmail Smtp;
 * Jwt Token;
