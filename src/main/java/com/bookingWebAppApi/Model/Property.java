@@ -1,6 +1,7 @@
 package com.bookingWebAppApi.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +29,8 @@ public class Property extends Auditable <String>  implements Serializable {
     private String propertyState;
     
     private String propertyZipCode;
+    
+    private List<String> propertyImageUrl;
 
     @Column(columnDefinition = "text")
     private String theSpace_noOfAccommodation;
@@ -197,6 +200,14 @@ public class Property extends Auditable <String>  implements Serializable {
 
 	public void setPropertyZipCode(String propertyZipCode) {
 		this.propertyZipCode = propertyZipCode;
+	}
+
+	public List<String> getPropertyImageUrl() {
+		return propertyImageUrl;
+	}
+
+	public void setPropertyImageUrl(List<String> propertyImageUrl) {
+		this.propertyImageUrl = propertyImageUrl;
 	}
 
 	public String getTheSpace_noOfAccommodation() {

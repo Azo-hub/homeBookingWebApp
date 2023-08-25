@@ -29,7 +29,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private static List<String> skipFilterUrls = Arrays.asList("/login","/signUp","/newUser",
     		"/forgetPassword","/allPropertyByCategory","/eachPropertyById","/reviewByProperty","/getUserByUsername",
-    		"/allPropertyByOwner","/contactPropertyOwner","/support");
+    		"/allPropertyByOwner","/contactPropertyOwner","/support","/uploadPropertyImageTest");
     
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
