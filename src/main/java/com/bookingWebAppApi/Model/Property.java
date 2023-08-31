@@ -31,6 +31,8 @@ public class Property extends Auditable <String>  implements Serializable {
     private String propertyZipCode;
     
     private List<String> propertyImageUrl;
+    
+    private List<String> propertyImageFileName;
 
     @Column(columnDefinition = "text")
     private String theSpace_noOfAccommodation;
@@ -137,7 +139,10 @@ public class Property extends Auditable <String>  implements Serializable {
     private double propertyCleaningFee;
     
     private String[] reviews;
-
+    
+    private List<Boolean> isImage;
+    
+   
 	public Long getId() {
 		return id;
 	}
@@ -208,6 +213,14 @@ public class Property extends Auditable <String>  implements Serializable {
 
 	public void setPropertyImageUrl(List<String> propertyImageUrl) {
 		this.propertyImageUrl = propertyImageUrl;
+	}
+
+	public List<String> getPropertyImageFileName() {
+		return propertyImageFileName;
+	}
+
+	public void setPropertyImageFileName(List<String> propertyImageFileName) {
+		this.propertyImageFileName = propertyImageFileName;
 	}
 
 	public String getTheSpace_noOfAccommodation() {
@@ -502,7 +515,15 @@ public class Property extends Auditable <String>  implements Serializable {
 		this.reviews = reviews;
 	}
 
+	public List<Boolean> getIsImage() {
+		return isImage;
+	}
 
+	public void setIsImage(List<Boolean> isImage) {
+		this.isImage = isImage;
+	}
 
+	
+	
 
 }

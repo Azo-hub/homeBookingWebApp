@@ -1,15 +1,21 @@
 package com.bookingWebAppApi.Resource;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bookingWebAppApi.Model.Property;
 import com.bookingWebAppApi.Model.Review;
@@ -17,91 +23,126 @@ import com.bookingWebAppApi.Service.CheckInAndOutDateService;
 import com.bookingWebAppApi.Service.PropertyService;
 import com.bookingWebAppApi.Service.ReviewService;
 import com.bookingWebAppApi.Utility.HttpCustomResponse;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Singleton;
+import com.cloudinary.utils.ObjectUtils;
 
 @RestController
 public class PropertyResource {
 
 	@Autowired
 	private PropertyService propertyService;
-	
+
 	@Autowired
 	private ReviewService reviewService;
-	
+
 	@Autowired
 	private CheckInAndOutDateService checkInAndOutDateService;
 
+	private final Cloudinary cloudinary = Singleton.getCloudinary();
+
 	@PreAuthorize("hasAnyAuthority('user:update')")
 	@PostMapping("/editProperty")
-	public ResponseEntity<Property> editProperty(@RequestParam("id") Long id, @RequestParam("name") String propertyName,
-			@RequestParam("propertyType") String propertyType, @RequestParam("propertyPrice") double propertyPrice,
-			@RequestParam("propertyCountry") String propertyCountry,@RequestParam("propertyCleaningFee") double propertyCleaningFee,
-			@RequestParam("propertyState") String propertyState, @RequestParam("propertyCity") String propertyCity,
-			@RequestParam("propertyAddress1") String propertyAddress1, @RequestParam("propertyAddress2") String propertyAddress2,
-			@RequestParam("propertyZipCode") String propertyZipCode, @RequestParam("description") String description,
-			@RequestParam("propertyTax") double propertyTax, @RequestParam("propertyServiceFee") double propertyServiceFee,
-			@RequestParam("noOfAccommodation") String noOfAccommodation, @RequestParam("noOfBedrooms") String noOfBedrooms,
-			@RequestParam("noOfKing") String noOfKing, @RequestParam("noOfQueen") String noOfQueen,
-			@RequestParam("noOfSingle") String noOfSingle, @RequestParam("noOfMasterBathroom") String noOfMasterBathroom,
-			@RequestParam("noOfPrivateBathroom") String noOfPrivateBathroom, @RequestParam("noOfHalfBath") String noOfHalfBath,
-			@RequestParam("Kitchen") String Kitchen, @RequestParam("laudryRoom") String laudryRoom,
-			@RequestParam("outDoorParking") String outDoorParking, @RequestParam("garage") String garage,
-			@RequestParam("balcony") String balcony, @RequestParam("backyard") String backyard,
-			@RequestParam("wifi") String wifi, @RequestParam("TowelsBedsheetsSoapAndToiletpaper") String TowelsBedsheetsSoapAndToiletpaper,
-			@RequestParam("shampoo") String shampoo, @RequestParam("closetDrawers") String closetDrawers,
-			@RequestParam("hairDryer") String hairDryer, @RequestParam("LEDTV") String LEDTV, @RequestParam("grill") String grill,
-			@RequestParam("parking") String parking, @RequestParam("outdoorSwimmingPool") String outdoorSwimmingPool, 
-			@RequestParam("iron&Board") String ironBoard, @RequestParam("satelliteOrCable") String satelliteOrCable, 
-			@RequestParam("microwave") String microwave, @RequestParam("boardGames") String boardGames,
-			@RequestParam("toaster") String toaster, @RequestParam("coffeeMaker") String coffeeMaker, 
-			@RequestParam("stove") String stove) {
-		
+	public ResponseEntity<Property> editProperty(@RequestBody Property property) {
 
-		Property editedProperty = propertyService.findById(id);
-		editedProperty.setName(propertyName);
-		editedProperty.setPropertyType(propertyType);
-		editedProperty.setPropertyPrice(propertyPrice);
-		editedProperty.setPropertyCountry(propertyCountry);
-		editedProperty.setPropertyState(propertyState);
-		editedProperty.setPropertyCity(propertyCity);
-		editedProperty.setPropertyZipCode(propertyZipCode);
-		editedProperty.setPropertyCleaningFee(propertyCleaningFee);
-		editedProperty.setTheSpace_noOfAccommodation(noOfAccommodation);
-		editedProperty.setTheSpace_noOfBedrooms(noOfBedrooms);
-		editedProperty.setBeds_noOfKing(noOfKing);
-		editedProperty.setBeds_noOfQueen(noOfQueen);
-		editedProperty.setBeds_noOfSingle(noOfSingle);
-		editedProperty.setBathrooms_noOfMasterBathroom(noOfMasterBathroom);
-		editedProperty.setBathrooms_noOfPrivateBathroom(noOfPrivateBathroom);
-		editedProperty.setBathrooms_noOfHalfBath(noOfHalfBath);
-		editedProperty.setSharedSpaces_kitchen(Kitchen);
-		editedProperty.setSharedSpaces_laudryRoom(laudryRoom);
-		editedProperty.setSharedSpaces_outDoorParking(outDoorParking);
-		editedProperty.setSharedSpaces_garage(garage);
-		editedProperty.setSharedSpaces_balcony(balcony);
-		editedProperty.setSharedSpaces_backyard(backyard);
-		editedProperty.setPropertyAddress1(propertyAddress1);
-		editedProperty.setPropertyAddress2(propertyAddress2);
-		editedProperty.setAmenities_wifi(wifi);
-		editedProperty.setAmenities_towelsBedsheetsSoapAndToiletpaper(TowelsBedsheetsSoapAndToiletpaper);
-		editedProperty.setAmenities_shampoo(shampoo);
-		editedProperty.setAmenities_closetDrawers(closetDrawers);
-		editedProperty.setAmenities_hairDryer(hairDryer);
-		editedProperty.setAmenities_LEDTV(LEDTV);
-		editedProperty.setAmenities_grill(grill);
-		editedProperty.setAmenities_parking(parking);
-		editedProperty.setAmenities_outdoorSwimmingPool(outdoorSwimmingPool);
-		editedProperty.setAmenities_ironBoard(ironBoard);
-		editedProperty.setAmenities_satelliteOrCable(satelliteOrCable);
-		editedProperty.setAmenities_microwave(microwave);
-		editedProperty.setAmenities_boardGames(boardGames);
-		editedProperty.setAmenities_toaster(toaster);
-		editedProperty.setAmenities_coffeeMaker(coffeeMaker);
-		editedProperty.setAmenities_stove(stove);
+		Property editedProperty = propertyService.findById(property.getId());
+
+		editedProperty.setName(property.getName());
+		editedProperty.setPropertyType(property.getPropertyType().toLowerCase());
+		editedProperty.setPropertyPrice(property.getPropertyPrice());
+		editedProperty.setPropertyCountry(property.getPropertyCountry());
+		editedProperty.setPropertyState(property.getPropertyState());
+		editedProperty.setPropertyCity(property.getPropertyCity());
+		editedProperty.setPropertyZipCode(property.getPropertyZipCode());
+		editedProperty.setPropertyCleaningFee(property.getPropertyCleaningFee());
+		editedProperty.setTheSpace_noOfAccommodation(property.getTheSpace_noOfAccommodation());
+		editedProperty.setTheSpace_noOfBedrooms(property.getTheSpace_noOfBedrooms());
+		editedProperty.setBeds_noOfKing(property.getBeds_noOfKing());
+		editedProperty.setBeds_noOfQueen(property.getBeds_noOfQueen());
+		editedProperty.setBeds_noOfSingle(property.getBeds_noOfSingle());
+		editedProperty.setBathrooms_noOfMasterBathroom(property.getBathrooms_noOfMasterBathroom());
+		editedProperty.setBathrooms_noOfPrivateBathroom(property.getBathrooms_noOfPrivateBathroom());
+		editedProperty.setBathrooms_noOfHalfBath(property.getBathrooms_noOfHalfBath());
+		editedProperty.setSharedSpaces_kitchen(property.getSharedSpaces_kitchen());
+		editedProperty.setSharedSpaces_laudryRoom(property.getSharedSpaces_laudryRoom());
+		editedProperty.setSharedSpaces_outDoorParking(property.getSharedSpaces_outDoorParking());
+		editedProperty.setSharedSpaces_garage(property.getSharedSpaces_garage());
+		editedProperty.setSharedSpaces_balcony(property.getSharedSpaces_balcony());
+		editedProperty.setSharedSpaces_backyard(property.getSharedSpaces_backyard());
+		editedProperty.setPropertyAddress1(property.getPropertyAddress1());
+		editedProperty.setPropertyAddress2(property.getPropertyAddress2());
+		editedProperty.setAmenities_wifi(property.getAmenities_wifi());
+		editedProperty.setAmenities_towelsBedsheetsSoapAndToiletpaper(
+				property.getAmenities_towelsBedsheetsSoapAndToiletpaper());
+		editedProperty.setAmenities_shampoo(property.getAmenities_shampoo());
+		editedProperty.setAmenities_closetDrawers(property.getAmenities_closetDrawers());
+		editedProperty.setAmenities_hairDryer(property.getAmenities_hairDryer());
+		editedProperty.setAmenities_LEDTV(property.getAmenities_LEDTV());
+		editedProperty.setAmenities_grill(property.getAmenities_grill());
+		editedProperty.setAmenities_parking(property.getAmenities_parking());
+		editedProperty.setAmenities_outdoorSwimmingPool(property.getAmenities_outdoorSwimmingPool());
+		editedProperty.setAmenities_ironBoard(property.getAmenities_ironBoard());
+		editedProperty.setAmenities_satelliteOrCable(property.getAmenities_satelliteOrCable());
+		editedProperty.setAmenities_boardGames(property.getAmenities_boardGames());
+
 		propertyService.save(editedProperty);
 
 		return new ResponseEntity<>(editedProperty, HttpStatus.OK);
-	
-		
+
+	}
+
+	@PreAuthorize("hasAnyAuthority('user:update')")
+	@PostMapping("/editPropertyImage")
+	public ResponseEntity<HttpCustomResponse> editPropertyImage(
+			@RequestParam("propertyImage") MultipartFile multipartFile, @RequestParam("propertyId") Long propertyId,
+			@RequestParam("fileIndex") int fileIndex) throws IOException {
+
+		Property property = propertyService.findById(propertyId);
+
+		List<String> dbImageUrls = property.getPropertyImageUrl();
+		List<Boolean> dbImagePresent = property.getIsImage();
+		List<String> dbImageFilenames = property.getPropertyImageFileName();
+
+		if (multipartFile != null) {
+
+			String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			byte[] bytes = multipartFile.getBytes();
+			String newPorpertyImageName = "bookingwebapp" + property.getName() + filename + property.getId();
+
+			/* deleting image file from cloudinary */
+			Map deleteResult = cloudinary.uploader().destroy(property.getPropertyImageFileName().get(fileIndex),
+					ObjectUtils.asMap("resource_type", "image"));
+
+			property.getPropertyImageUrl().remove(fileIndex);
+
+			property.getIsImage().remove(fileIndex);
+
+			property.getPropertyImageFileName().remove(fileIndex);
+
+			/* uploading image file to cloudinary */
+			Map uploadResult = cloudinary.uploader().upload(bytes, ObjectUtils.asMap("invalidate", true));
+
+			String publicId = uploadResult.get("public_id").toString();
+
+			/* renaming uploaded file to cloudinary */
+			Map uploadResultRename = cloudinary.uploader().rename(publicId, newPorpertyImageName,
+					ObjectUtils.asMap("resource_type", "image", "overwrite", "true"));
+
+			// System.out.println(uploadResultRename.get("public_id"));
+			String imageUrl = uploadResultRename.get("secure_url").toString();
+
+			dbImageUrls.add(fileIndex, imageUrl);
+			dbImagePresent.add(fileIndex, true);
+			dbImageFilenames.add(fileIndex, newPorpertyImageName);
+
+		}
+
+		property.setPropertyImageUrl(dbImageUrls);
+		property.setIsImage(dbImagePresent);
+		property.setPropertyImageFileName(dbImageFilenames);
+		propertyService.save(property);
+
+		return response(HttpStatus.OK, "Image Uploaded Successfully");
 
 	}
 
@@ -131,7 +172,7 @@ public class PropertyResource {
 		return new ResponseEntity<>(propertyList, HttpStatus.OK);
 
 	}
-	
+
 	@GetMapping("/allProperty")
 	public ResponseEntity<List<Property>> getAllProperty() {
 
@@ -141,48 +182,37 @@ public class PropertyResource {
 
 	}
 
-	
-
 	@PreAuthorize("hasAnyAuthority('user:update')")
 	@PostMapping("/deleteProperty")
 	public ResponseEntity<HttpCustomResponse> onDelete(@RequestParam("deletePropertyId") Long id) {
-		
+
 		checkInAndOutDateService.deleteByProperty(propertyService.findById(id));
 		reviewService.deleteByProperty(propertyService.findById(id));
 		propertyService.deletePropertyById(id);
 
 		return response(HttpStatus.OK, "Property deleted Successfully!");
 	}
-	
-	
+
 	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/addReview")
 	public ResponseEntity<HttpCustomResponse> onAddReview(@RequestParam("propertyId") Long propertyId,
-			@RequestParam("reviewContent") String reviewContent, @RequestParam("reviewAuthor") String reviewAuthor, 
+			@RequestParam("reviewContent") String reviewContent, @RequestParam("reviewAuthor") String reviewAuthor,
 			@RequestParam("reviewLocation") String reviewLocation) {
-		
-		
-		
-			Property property = propertyService.findById(propertyId);
-			reviewService.createReview(reviewContent, reviewAuthor, reviewLocation, property);
-			
-		
-		
+
+		Property property = propertyService.findById(propertyId);
+		reviewService.createReview(reviewContent, reviewAuthor, reviewLocation, property);
+
 		return response(HttpStatus.OK, "Reviews added Successfully!");
 	}
-	
-	
+
 	@PostMapping("/reviewByProperty")
 	public ResponseEntity<List<Review>> getReviewByProperty(@RequestParam("propertyId") Long propertyId) {
-		
-		
-		
-			Property property = propertyService.findById(propertyId);
-			List<Review> propertyReview = reviewService.getReviewByProperty(property);
- 		
+
+		Property property = propertyService.findById(propertyId);
+		List<Review> propertyReview = reviewService.getReviewByProperty(property);
+
 		return new ResponseEntity<>(propertyReview, HttpStatus.OK);
 	}
-
 
 	private ResponseEntity<HttpCustomResponse> response(HttpStatus httpStatus, String message) {
 
