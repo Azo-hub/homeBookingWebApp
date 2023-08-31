@@ -14,7 +14,7 @@ public class SecurityConstant {
     public static final String[] PUBLIC_URLS = {
     		"/","/eachPropertyById","/checkPropertyAvailability", "/allPropertyByCategory", "/login", "/error", "/signUp", "/newUser", 
     		"/forgetPassword", "/allPropertyByOwner","/logout","/contactPropertyOwner","/support","/reviewByProperty"
-    		,"/uploadPropertyImageTest"
+    		
 
     };
 
