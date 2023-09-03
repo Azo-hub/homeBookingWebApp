@@ -123,8 +123,9 @@ public class BookingServiceImpl implements BookingService  {
     }
 
     @Override
-    public void deleteBookingById(Long Id) {
+    public void deleteBookingByProperty(Property property) {
         // TODO Auto-generated method stub
+    	bookingRepository.deleteByProperty(property);
 
     }
 
@@ -153,6 +154,9 @@ public class BookingServiceImpl implements BookingService  {
 
 		
     }
+	
+	
+	 
 
 	
 }

@@ -93,7 +93,7 @@ public class AddNewPropertyResource {
 
 	@PreAuthorize("hasAnyAuthority('user:create')")
 	@PostMapping("/uploadPropertyImages")
-	public ResponseEntity<HttpCustomResponse> uploadPropertyImages (
+	public ResponseEntity <HttpCustomResponse> uploadPropertyImages (
 			@RequestParam("propertyImages") List<MultipartFile> multipartFiles,
 			@RequestParam("propertyId") Long propertyId) throws IOException {
 
@@ -140,37 +140,41 @@ public class AddNewPropertyResource {
 		property.setIsImage(imagePresent);
 		property.setPropertyImageFileName(imageFilenames);
 		propertyService.save(property);
-
-		return response(HttpStatus.OK, "Image Uploaded Successfully");
-
-	}
-
-/*	//Define a method to download files
-	@PostMapping("/downloadPropertyImageTest/{imageUrl}")
-	public ResponseEntity<Resource> downloadPropertyImageTest(
-			@PathVariable("imageUrl") String imageUrl) throws IOException {
 		
-		public static final String DIRECTORY = System.getProperty("user.home") + "/Downloads/uploads/";
-
-		Path filePath = Paths.get(DIRECTORY).toAbsolutePath().normalize().resolve(filename);
-
-		if (!Files.exists(filePath)) {
-			throw new FileNotFoundException(filename + "was not found on the server");
-		}
-
-		Resource resource = new UrlResource(filePath.toUri());
-
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add("File-Name", filename);
-		httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment;File-Name=" + resource.getFilename());
-
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(Files.probeContentType(filePath)))
-				.headers(httpHeaders).body(resource);
+		return response(HttpStatus.OK, "Image Uploaded Successfully");
+		
 
 	}
-	
-	*/
 
+	/*
+	 * //Define a method to download files
+	 * 
+	 * @PostMapping("/downloadPropertyImageTest/{imageUrl}") public
+	 * ResponseEntity<Resource> downloadPropertyImageTest(
+	 * 
+	 * @PathVariable("imageUrl") String imageUrl) throws IOException {
+	 * 
+	 * public static final String DIRECTORY = System.getProperty("user.home") +
+	 * "/Downloads/uploads/";
+	 * 
+	 * Path filePath =
+	 * Paths.get(DIRECTORY).toAbsolutePath().normalize().resolve(filename);
+	 * 
+	 * if (!Files.exists(filePath)) { throw new FileNotFoundException(filename +
+	 * "was not found on the server"); }
+	 * 
+	 * Resource resource = new UrlResource(filePath.toUri());
+	 * 
+	 * HttpHeaders httpHeaders = new HttpHeaders(); httpHeaders.add("File-Name",
+	 * filename); httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION,
+	 * "attachment;File-Name=" + resource.getFilename());
+	 * 
+	 * return ResponseEntity.ok().contentType(MediaType.parseMediaType(Files.
+	 * probeContentType(filePath))) .headers(httpHeaders).body(resource);
+	 * 
+	 * }
+	 * 
+	 */
 
 	private ResponseEntity<HttpCustomResponse> response(HttpStatus httpStatus, String message) {
 

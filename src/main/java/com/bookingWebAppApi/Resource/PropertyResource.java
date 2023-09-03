@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bookingWebAppApi.Model.Property;
 import com.bookingWebAppApi.Model.Review;
+import com.bookingWebAppApi.Service.BookingService;
 import com.bookingWebAppApi.Service.CheckInAndOutDateService;
 import com.bookingWebAppApi.Service.PropertyService;
 import com.bookingWebAppApi.Service.ReviewService;
@@ -38,6 +39,9 @@ public class PropertyResource {
 
 	@Autowired
 	private CheckInAndOutDateService checkInAndOutDateService;
+	
+	@Autowired
+	private BookingService bookingService;
 
 	private final Cloudinary cloudinary = Singleton.getCloudinary();
 
@@ -186,6 +190,7 @@ public class PropertyResource {
 	@PostMapping("/deleteProperty")
 	public ResponseEntity<HttpCustomResponse> onDelete(@RequestParam("deletePropertyId") Long id) {
 
+		bookingService.deleteBookingByProperty(propertyService.findById(id));
 		checkInAndOutDateService.deleteByProperty(propertyService.findById(id));
 		reviewService.deleteByProperty(propertyService.findById(id));
 		propertyService.deletePropertyById(id);

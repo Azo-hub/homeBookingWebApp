@@ -37,9 +37,9 @@ public class BookingWebAppApiApplication /* implements CommandLineRunner */ {
 	}
 
 	public static void main(String[] args) {
-		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "************", // insert here you cloud name
-				"api_key", "*****************", // insert here your api code
-				"api_secret", "****************************")); // insert here your api secret
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "********", // insert here you cloud name
+				"api_key", "**************", // insert here your api code
+				"api_secret", "******************")); // insert here your api secret
 
 		SingletonManager manager = new SingletonManager();
 		manager.setCloudinary(cloudinary);

@@ -6,6 +6,7 @@ import java.util.List;
 import com.bookingWebAppApi.Exception.PropertyBookingExistException;
 import com.bookingWebAppApi.Model.Booking;
 import com.bookingWebAppApi.Model.PaymentMethod;
+import com.bookingWebAppApi.Model.Property;
 import com.bookingWebAppApi.Model.Userr;
 
 public interface BookingService {
@@ -21,15 +22,14 @@ public interface BookingService {
 			Long bookingNoOfDays, Long bookingPropertyId, Userr user, String noOfGuest, String noOfChildren,
 			String pets, PaymentMethod paymentCard) throws PropertyBookingExistException;
 
-    void deleteBookingById(Long Id);
-
+    
 	List<Booking> findAll();
 
 	List<Booking> findByLoginUser(Userr loginUser);
 
-	
-
 	List<Booking> findByBookingFirstNameContaining(String searchInput);
+
+	void deleteBookingByProperty(Property property);
 
 	
 	
